@@ -1,9 +1,8 @@
 /* === Colors Palette === */
 
-$primary: #f9faf7
+$primary: #121212
 $secondary: #1a73e8
-$text: #373737
-$button: #0a71e7
+$text: #f9f6f7
 
 /* === Breakpoints === */
 
@@ -27,7 +26,7 @@ $lg: 1920px
     justify-content: center
     align-items: center
     cursor: default
-    color: black
+    color: $text
     background-color: $primary
 
 .full-container
@@ -36,7 +35,38 @@ $lg: 1920px
     justify-content: center
     align-items: center
     cursor: default
-    color: white
+    color: $text
     background-color: $primary
     height: 100vh
     width: 100vw
+
+/* === Homepage === */
+
+.page-container > .hero-container
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    position: relative
+    width: 100%
+    height: 800px
+    padding: 0 30px
+    background: linear-gradient(180deg, rgba(18,18,18,0.8) 0%, rgba(18,18,18,1) 98%), url('../../images/erik-mclean-27kCu7bXGEI-unsplash.jpg') no-repeat center center
+    background-repeat: no-repeat
+    background-position: 50% 20%
+    background-size: cover
+
+    // &::before
+    //     content: ''
+    //     display: block
+    //     position: absolute
+    //     left: 0
+    //     top: 0
+    //     width: 100%
+    //     height: 100%
+    //     opacity: 0.15
+    //     background-image: url('../../images/erik-mclean-27kCu7bXGEI-unsplash.jpg')
+    //     background-repeat: no-repeat
+    //     background-position: 50% 0
+    //     background-size: cover
+    //     filter: blur(3px)
