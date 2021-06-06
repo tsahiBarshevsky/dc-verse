@@ -3,7 +3,7 @@
 /* === Colors Palette === */
 
 $primary: #121212
-$secondary: #1a73e8
+$secondary: #ffa301
 $text: #f9f6f7
 
 /* === Breakpoints === */
@@ -43,6 +43,57 @@ $lg: 1920px
     height: 100vh
     width: 100vw
 
+/* === Card === */
+
+.card-container
+    display: flex
+    justify-content: flex-start
+    align-items: flex-start
+    width: 750px
+    height: fit-content
+    margin: 10px
+
+    &:hover
+        .information > h2
+            color: $secondary
+            transition: 0.5s ease-in
+
+    img
+        width: 325px
+        height: 210px
+        object-fit: cover
+        object-position: center center
+
+    .information
+        display: flex
+        flex-direction: column
+        justify-content: flex-start
+        align-items: flex-start
+        padding-right: 25px
+        color: #767676
+
+        h2
+            color: $text
+
+        .category-and-date
+            display: flex
+            justify-content: flex-start
+            align-items: center
+            margin: 20px 0
+
+            .category
+                display: flex
+                justify-content: center
+                align-items: center
+                width: fit-content
+                height: fit-content
+                padding: 5px 10px
+                margin-left: 15px
+                color: $text
+                background-color: $secondary
+                font-weight: normal
+                letter-spacing: 1px
+
 /* === Homepage === */
 
 .homepage-container
@@ -53,7 +104,6 @@ $lg: 1920px
     cursor: default
     color: $text
     background-color: $primary
-    padding-bottom: 10px
 
     .hero-container
         display: flex
@@ -70,6 +120,20 @@ $lg: 1920px
         background-position: 50% 25%
         background-size: cover
 
-    .ticker
-        border: 1px solid white
-        padding: 0 10px
+    .content
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        padding: 0 25px
+        width: 100%
+
+        .ticker
+            padding: 0 10px
+            margin-bottom: 40px
+            text-align: center
+
+        .divider
+            width: 90%
+            margin-bottom: 20px
+            background-color: rgba(#f9f6f7, 0.2)
