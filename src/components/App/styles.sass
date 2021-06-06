@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap')
+
 /* === Colors Palette === */
 
 $primary: #121212
@@ -18,7 +20,7 @@ $lg: 1920px
     margin: 0
     padding: 0
     box-sizing: border-box
-    // font-family: "Nunito", sans-serif
+    font-family: "Varela Round", sans-serif
 
 .page-container
     display: flex
@@ -28,6 +30,7 @@ $lg: 1920px
     cursor: default
     color: $text
     background-color: $primary
+    padding-bottom: 10px
 
 .full-container
     display: flex
@@ -42,31 +45,31 @@ $lg: 1920px
 
 /* === Homepage === */
 
-.page-container > .hero-container
+.homepage-container
     display: flex
     flex-direction: column
     justify-content: center
     align-items: center
-    position: relative
-    width: 100%
-    height: 800px
-    padding: 0 30px
-    background: linear-gradient(180deg, rgba(18,18,18,0.8) 0%, rgba(18,18,18,1) 98%), url('../../images/erik-mclean-27kCu7bXGEI-unsplash.jpg') no-repeat center center
-    background-repeat: no-repeat
-    background-position: 50% 20%
-    background-size: cover
+    cursor: default
+    color: $text
+    background-color: $primary
+    padding-bottom: 10px
 
-    // &::before
-    //     content: ''
-    //     display: block
-    //     position: absolute
-    //     left: 0
-    //     top: 0
-    //     width: 100%
-    //     height: 100%
-    //     opacity: 0.15
-    //     background-image: url('../../images/erik-mclean-27kCu7bXGEI-unsplash.jpg')
-    //     background-repeat: no-repeat
-    //     background-position: 50% 0
-    //     background-size: cover
-    //     filter: blur(3px)
+    .hero-container
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        position: relative
+        width: 100%
+        height: 800px
+        padding: 0 30px
+        margin-bottom: 50px
+        background: linear-gradient(180deg, rgba(18,18,18,0.8) 0%, rgba(18,18,18,1) 98%), url('../../images/dev-d2Py_uhXJQo-unsplash.jpg') no-repeat center center
+        background-repeat: no-repeat
+        background-position: 50% 25%
+        background-size: cover
+
+    .ticker
+        border: 1px solid white
+        padding: 0 10px
