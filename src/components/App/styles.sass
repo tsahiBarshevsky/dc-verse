@@ -54,6 +54,12 @@ $lg: 1920px
     height: 210px
     margin: 10px
 
+    @media screen and ( max-width: $sm )
+        flex-direction: column
+        width: 100%
+        height: fit-content
+        margin: 0 0 25px
+
     &:hover
         .information > .link
             color: $secondary
@@ -65,6 +71,9 @@ $lg: 1920px
         object-fit: cover
         object-position: center center
 
+        @media screen and ( max-width: $sm )
+            width: 100%
+
     .information
         display: flex
         flex-direction: column
@@ -73,6 +82,9 @@ $lg: 1920px
         padding-right: 25px
         color: #767676
         height: 100%
+
+        @media screen and ( max-width: $sm )
+            padding: 10px 0
 
         .link
             text-decoration: none
@@ -84,6 +96,9 @@ $lg: 1920px
             justify-content: flex-start
             align-items: center
             margin: 20px 0
+
+            @media screen and ( max-width: $sm )
+                margin: 10px 0
 
             .category
                 display: flex
@@ -129,7 +144,7 @@ $lg: 1920px
         display: flex
         flex-direction: column
         justify-content: center
-        align-items: center
+        align-items: flex-start
         padding: 0 25px
         width: 100%
 

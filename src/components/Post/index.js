@@ -27,8 +27,10 @@ export default function Post()
     {
         var paragraphs = posts[0].text.split('\n');
         return (
-            paragraphs.map((paragraph) =>
-                <Typography gutterBottom paragraph>{paragraph}</Typography>
+            paragraphs.map((paragraph, index) =>
+                <div key={index}>
+                    <Typography gutterBottom paragraph>{paragraph}</Typography>
+                </div>
             )
         )
     }

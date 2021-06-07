@@ -12,7 +12,7 @@ export default function Card({post})
                     <div className="category">{post.category}</div>
                     <p>{post.date}</p>
                 </div>
-                <p>{post.text}</p>
+                <p>{post.text.length >= 220 ? `${post.text.slice(0, 220)}...` : post.text}</p>
             </div>
         </div>
     )
