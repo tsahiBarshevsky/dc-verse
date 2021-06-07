@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Card({post}) 
 {
@@ -6,7 +7,7 @@ export default function Card({post})
         <div className="card-container">
             <img src={post.image} alt={post.title} />
             <div className="information">
-                <h2>{post.title}</h2>
+                <Link to='/post' className="link">{post.title}</Link>
                 <div className="category-and-date">
                     <div className="category">{post.category}</div>
                     <p>{post.date}</p>

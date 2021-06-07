@@ -2,7 +2,7 @@ import React from 'react';
 import { Divider, makeStyles } from '@material-ui/core';
 import NewsTicker from 'react-advanced-news-ticker';
 import Card from '../Card';
-import { posts } from '../dummyPosts';
+import { posts, updates } from '../dummyPosts';
 
 const useStyles = makeStyles({
     divider:
@@ -26,9 +26,9 @@ export default function Homepage()
                     rowHeight={35}
                     speed={1000}
                     className="ticker">
-                    {posts.map((post) =>
-                        <div key={post.id}>
-                            <h2>{post.date} | {post.title}</h2>
+                    {updates.map((update) =>
+                        <div key={update.id}>
+                            <h2>{update.date} | {update.content}</h2>
                         </div>
                     )}
                 </NewsTicker>
@@ -38,6 +38,7 @@ export default function Homepage()
                         <Card post={post} />
                     </div>
                 )}
+                <Divider className={classes.divider} />
             </div>
         </div>
     )
