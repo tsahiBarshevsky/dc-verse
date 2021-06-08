@@ -1,8 +1,11 @@
 import React from 'react';
 import { Divider, makeStyles } from '@material-ui/core';
 import NewsTicker from 'react-advanced-news-ticker';
+// import InstagramFeed from 'react-ig-feed';
+// import 'react-ig-feed/dist/index.css';
 import Card from '../Card';
-import { posts, updates } from '../dummyPosts';
+import logo from '../../images/logo.png';
+import { posts, updates, categories } from '../dummyInfo';
 
 const useStyles = makeStyles({
     divider:
@@ -20,7 +23,11 @@ export default function Homepage()
 
     return (
         <div className="homepage-container">
-            <div className="hero-container"></div>
+            <div className="hero-container">
+                <div className="dummy-navbar">
+                    <img src={logo} alt="" />
+                </div>
+            </div>
             <NewsTicker 
                 maxRows={1} 
                 rowHeight={35}
@@ -45,6 +52,15 @@ export default function Homepage()
                 <div className="about">
                     <img src="https://images.pexels.com/photos/2304123/pexels-photo-2304123.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" className="about-image" />
                     <p className="about-text">לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית גולר מונפרר סוברט לורם שבצק יהול, לכנוץ בעריר גק ליץ, ושבעגט ליבם סולגק. בראיט ולחת צורק מונחף, בגורמי מגמש. תרבנך וסתעד לכנו סתשם השמה - לתכי מורגם בורק? לתיג ישבעס.</p>
+                    <div className="top-categories">
+                        <h3 className="title">קטגוריות מובילות</h3>
+                        {categories.map((category) =>
+                            <div key={category.id} className="category">
+                                <p>{category.name}</p>
+                                <p>{category.count}</p>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
             <Divider className={classes.divider} />

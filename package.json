@@ -12,6 +12,7 @@
     "react-advanced-news-ticker": "^1.0.1",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
+    "react-ig-feed": "^1.0.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-share": "^4.4.0",

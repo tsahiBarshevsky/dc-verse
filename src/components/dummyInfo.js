@@ -55,4 +55,37 @@ export const updates = [
         date: '09/06/2021',
         content: 'עדכון 3'
     },
-]
+];
+
+export const categories = [
+    {
+        id: 0,
+        name: 'קטגוריה1',
+        count: 5
+    },
+    {
+        id: 1,
+        name: 'קטגוריה2',
+        count: 23
+    },
+    {
+        id: 2,
+        name: 'קטגוריה3',
+        count: 8
+    },
+    {
+        id: 3,
+        name: 'קטגוריה4',
+        count: 6
+    },
+    {
+        id: 4,
+        name: 'קטגוריה5',
+        count: 9
+    },
+    {
+        id: 5,
+        name: 'קטגוריה6',
+        count: 4
+    },
+];

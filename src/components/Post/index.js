@@ -3,7 +3,7 @@ import { createMuiTheme, makeStyles, MuiThemeProvider, Typography } from '@mater
 import { FaFacebookF, FaFacebookMessenger, FaTwitter, FaWhatsapp } from 'react-icons/fa';
 import { IoShareSocial } from 'react-icons/io5';
 import { FacebookShareButton, FacebookMessengerShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
-import { posts } from '../dummyPosts';
+import { posts } from '../dummyInfo';
 
 const theme = createMuiTheme({
     typography:
