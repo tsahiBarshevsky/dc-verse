@@ -1,6 +1,6 @@
 import React from 'react';
 import { createMuiTheme, makeStyles, MuiThemeProvider, Typography } from '@material-ui/core';
-import { FaFacebookF, FaFacebookMessenger, FaTwitter, FaWhatsapp } from 'react-icons/fa';
+import { FaFacebookF, FaFacebook, FaFacebookMessenger, FaTwitter, FaWhatsapp, FaInstagram } from 'react-icons/fa';
 import { IoShareSocial } from 'react-icons/io5';
 import { FacebookShareButton, FacebookMessengerShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
 import { posts } from '../dummyInfo';
@@ -8,7 +8,8 @@ import { posts } from '../dummyInfo';
 const theme = createMuiTheme({
     typography:
     {
-        allVariants: { fontFamily: `"Varela Round", sans-serif` }
+        allVariants: { fontFamily: `"Varela Round", sans-serif` },
+        h6: { fontWeight: 600 },
     }
 });
 
@@ -87,6 +88,22 @@ export default function Post()
                 </div>
                 <div className="text-container">
                     {renderText()}
+                </div>
+                <div className="about">
+                    <div className="image-container">
+                        <img src="https://images.pexels.com/photos/2304123/pexels-photo-2304123.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" />
+                    </div>
+                    <div className="about-container">
+                        <Typography variant="h6">מתן קציר</Typography>
+                        <Typography variant="body1" gutterBottom>
+                            לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית גולר מונפרר סוברט לורם שבצק יהול, לכנוץ בעריר גק ליץ, ושבעגט ליבם סולגק. בראיט ולחת צורק מונחף, בגורמי מגמש. תרבנך וסתעד לכנו סתשם השמה - לתכי מורגם בורק? לתיג ישבעס.
+                        </Typography>
+                        <div className="social-media">
+                            <FaFacebook className="icon" />
+                            <FaInstagram className="icon" />
+                            <FaTwitter className="icon" />
+                        </div>
+                    </div>
                 </div>
             </MuiThemeProvider>
         </div>
