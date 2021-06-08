@@ -7,7 +7,8 @@ import { posts, updates } from '../dummyPosts';
 const useStyles = makeStyles({
     divider:
     {
-        width: '100%',
+        width: '90%',
+        marginTop: 40,
         marginBottom: 40,
         backgroundColor: '#88888833'
     }
@@ -20,26 +21,33 @@ export default function Homepage()
     return (
         <div className="homepage-container">
             <div className="hero-container"></div>
-            <div className="content">
-                <NewsTicker 
-                    maxRows={1} 
-                    rowHeight={35}
-                    speed={1000}
-                    className="ticker">
-                    {updates.map((update) =>
-                        <div key={update.id}>
-                            <h2>{update.date} | {update.content}</h2>
-                        </div>
-                    )}
-                </NewsTicker>
-                <Divider className={classes.divider} />
-                {posts.map((post) =>
-                    <div key={post.id}>
-                        <Card post={post} />
+            <NewsTicker 
+                maxRows={1} 
+                rowHeight={35}
+                speed={1000}
+                className="ticker">
+                {updates.map((update) =>
+                    <div key={update.id}>
+                        <h2>{update.date} | {update.content}</h2>
                     </div>
                 )}
-                <Divider className={classes.divider} />
+            </NewsTicker>
+            <Divider className={classes.divider} />
+            <div className="content">
+                <div className="posts">
+                    <h3 className="title">פוסטים אחרונים</h3>
+                    {posts.map((post) =>
+                        <div key={post.id}>
+                            <Card post={post} />
+                        </div>
+                    )}
+                </div>
+                <div className="about">
+                    <img src="https://images.pexels.com/photos/2304123/pexels-photo-2304123.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" className="about-image" />
+                    <p className="about-text">לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית גולר מונפרר סוברט לורם שבצק יהול, לכנוץ בעריר גק ליץ, ושבעגט ליבם סולגק. בראיט ולחת צורק מונחף, בגורמי מגמש. תרבנך וסתעד לכנו סתשם השמה - לתכי מורגם בורק? לתיג ישבעס.</p>
+                </div>
             </div>
+            <Divider className={classes.divider} />
         </div>
     )
 }

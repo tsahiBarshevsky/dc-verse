@@ -52,7 +52,7 @@ $lg: 1920px
     align-items: flex-start
     width: 750px
     height: 210px
-    margin: 10px
+    margin: 0 0 20px
 
     @media screen and ( max-width: $sm )
         flex-direction: column
@@ -140,23 +140,58 @@ $lg: 1920px
         background-position: 50% 25%
         background-size: cover
 
+    .ticker
+        padding: 0 10px
+        margin-bottom: 5px
+        text-align: center
+
     .content
         display: flex
-        flex-direction: column
-        justify-content: center
+        flex-direction: row
+        justify-content: space-between
         align-items: flex-start
-        padding: 0 25px
         width: 100%
+        padding: 0 175px
 
-        .ticker
-            padding: 0 10px
-            margin-bottom: 40px
-            text-align: center
+        @media screen and ( max-width: $lg )
+            padding: 0 100px
 
-        .divider
-            width: 90%
-            margin-bottom: 20px
-            background-color: rgba(#f9f6f7, 0.2)
+        @media screen and ( max-width: $md )
+            flex-direction: column
+
+        @media screen and ( max-width: $sm )
+            padding: 0 25px
+
+        .posts
+            display: flex
+            flex-direction: column
+            justify-content: flex-start
+            align-items: flex-start
+
+            .title
+                margin-bottom: 15px
+                letter-spacing: 1px
+
+        .about
+            display: flex
+            flex-direction: column
+            justify-content: flex-start
+            align-items: center
+            padding: 0 10px 10px 10px
+            width: 300px
+            height: 100%
+            // border: 1px solid white
+
+            .about-image
+                width: 160px
+                height: 160px
+                border-radius: 50%
+                margin-bottom: 20px
+                object-fit: cover
+                object-position: center center
+
+            .about-text
+                text-align: center
 
 /* === Post === */
 
@@ -169,6 +204,9 @@ $lg: 1920px
     padding: 10px 50px
     color: $text
     background-color: $primary
+
+    @media screen and ( max-width: $sm )
+        padding: 10px 15px
 
     .category-and-date
         display: flex
@@ -190,14 +228,31 @@ $lg: 1920px
             letter-spacing: 1px
             border-radius: 2px
 
-    .main-image
-        width: 775px
-        height: 450px
-        object-fit: cover
-        object-position: center center
+    .image-container
+        position: relative
+        width: fit-content
+        height: fit-content
+
+        .main-image
+            width: 775px
+            height: 450px
+            object-fit: cover
+            object-position: center center
+
+            @media screen and ( max-width: $sm )
+                width: 100%
+
+        .credit
+            position: absolute
+            bottom: 0
+            left: 0
+            padding: 7px 15px
+            text-align: center
+            background-color: rgba(black, 0.4)
 
     .share-buttons
         display: flex
+        flex-wrap: wrap
         justify-content: flex-start
         align-items: center
         margin: 15px 0
@@ -216,6 +271,9 @@ $lg: 1920px
             border-radius: 2px
             margin-left: 20px
             padding: 0 8px
+
+            @media screen and ( max-width: $sm )
+                margin: 5px 0 5px 25px //top right bottom left
 
             &::before, &::after
                 right: 100%
@@ -247,6 +305,9 @@ $lg: 1920px
             border: 1px solid rgba($secondary, 0.8)
             border-radius: 2px
             transition: border 0.5s ease-in-out
+
+            @media screen and ( max-width: $sm )
+                margin: 5px 0 5px 20px //top right bottom left
 
             &:hover
                 border: 1px solid $secondary

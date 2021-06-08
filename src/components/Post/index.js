@@ -43,7 +43,10 @@ export default function Post()
                     <div className="category">{posts[0].category}</div>
                     <p>{posts[0].date}</p>
                 </div>
-                <img src={posts[0].image} alt={posts[0].title} className="main-image" />
+                <div className="image-container">
+                    <img src={posts[0].image} alt={posts[0].title} className="main-image" />
+                    <div className="credit">קרדיט</div>
+                </div>
                 <div className="share-buttons">
                     <div className="share">
                         <IoShareSocial style={{fontSize: 20}} />
