@@ -1,7 +1,7 @@
 import app from 'firebase/app';
 // import 'firebase/auth';
 import 'firebase/firestore';
-//import 'firebase/storage';
+import 'firebase/storage';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCrxqdPqtURvoW-8bT6kAfgI3vjOYUXW_M",
@@ -19,18 +19,18 @@ class Firebase
         app.initializeApp(firebaseConfig);
         // this.auth = app.auth();
         this.db = app.firestore();
-        // this.storage = app.storage();
+        this.storage = app.storage();
     }
 
-    addPost(title, date, category, text)
+    addPost(title, date, category, text, image, credit)
     {
         return this.db.doc(`posts/${title}`).set({
             title: title,
             date: date,
             category: category,
             text: text,
-            image: 'https://images.pexels.com/photos/5006655/pexels-photo-5006655.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-            credit: 'קרדיט'
+            image: image,
+            credit: credit
         });
     }
 

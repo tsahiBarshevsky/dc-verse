@@ -33,6 +33,11 @@ export default function Editor()
     const [category, setCategory] = useState('');
     const [date, setDate] = useState(new Date());
     const [text, setText] = useState('');
+    const [image, setImage] = useState('');
+    const [credit, setCredit] = useState('');
+    console.log('====================================');
+    console.log(image);
+    console.log('====================================');
     const [disableTitle, setDisableTitle] = useState(true);
     const [disableCategory, setDisableCategory] = useState(true);
     const [disableText, setDisableText] = useState(true);
@@ -95,6 +100,39 @@ export default function Editor()
         setDate(new Date());
     }
 
+    const uploadMainImage = (e) =>
+	{
+		if (e.target.files[0])
+		{
+			try 
+			{	
+                // notify("success", "Upload has started");
+                const uploadTask = firebase.storage.ref(`posts/${title}`).put(e.target.files[0]);
+                uploadTask.on(
+                    'state_changed',
+                    (snapshot) => {
+                        const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                        console.log(progress);
+                    },
+                    (error) => {
+                        console.log(error);
+                        //alert(error.message);
+                    },
+                    () => {
+                        firebase.storage.ref(`posts/`).child(title).getDownloadURL().then(
+                            url => setImage(url)
+                        ).then(alert("Main image uploaded successfully!"));
+                    }
+                );
+			} 
+			catch (error) 
+			{
+                // notify('error', 'error');
+				console.log(error.message);
+			}
+		}
+	}
+
     return (
         <div className="editor-container">
             <h2>הוספת פוסט חדש</h2>
@@ -136,6 +174,31 @@ export default function Editor()
                             className={classes.input}
                             KeyboardButtonProps={{'aria-label': 'change date',}} />
                     </MuiPickersUtilsProvider>
+                    <FormControl margin="normal" fullWidth>
+                        <Input
+                            id="credit" name="credit"
+                            variant="outlined"
+                            autoComplete="off" 
+                            value={credit} 
+                            className={classes.input}
+                            placeholder="קרדיט תמונה ראשית..."
+                            disableUnderline 
+                            onChange={e => setCredit(e.target.value)} />
+                    </FormControl>
+                    <Button 
+                        variant="contained" 
+                        component="label" 
+                        className={classes.button}
+                        style={{backgroundColor: '#363d4d'}}>
+                        העלאת תמונה ראשית
+                        <input
+                            accept="image/*"
+                            id="upload-main-photo"
+                            name="upload-main-photo"
+                            type="file"
+                            hidden
+                            onChange={uploadMainImage} />
+                    </Button>
                 </MuiThemeProvider>
             </StylesProvider>
             <div className="text-editor">
@@ -217,9 +280,9 @@ export default function Editor()
     {
         try 
         {
-                await firebase.addPost(title, date, category, text);
-                alert("הפוסט נוסף בהצלחה");
-                setDisableSending(true);
+            await firebase.addPost(title, date, category, text, image, credit);
+            alert("הפוסט נוסף בהצלחה");
+            setDisableSending(true);
         } 
         catch (error) 
         {

@@ -4,7 +4,6 @@ import { FaFacebookF, FaFacebook, FaFacebookMessenger, FaTwitter, FaWhatsapp, Fa
 import { IoShareSocial } from 'react-icons/io5';
 import { FacebookShareButton, FacebookMessengerShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
 import parse from "html-react-parser";
-import { posts } from '../dummyInfo';
 import firebase from '../firebase';
 
 const theme = createMuiTheme({
@@ -28,7 +27,7 @@ export default function Post()
     const classes = useStyles();
 
     useEffect(() => {
-        firebase.getPost('פוסט לבדיקה').then(setPost);
+        firebase.getPost('פוסט לבדיקה עם תמונה').then(setPost);
     }, []);
 
     const renderText = () =>
