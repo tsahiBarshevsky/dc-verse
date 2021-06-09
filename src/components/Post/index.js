@@ -27,7 +27,7 @@ export default function Post()
     const classes = useStyles();
 
     useEffect(() => {
-        firebase.getPost('פוסט לבדיקה עם תמונה').then(setPost);
+        firebase.getPost('בדיקה סופית').then(setPost);
     }, []);
 
     const renderText = () =>
