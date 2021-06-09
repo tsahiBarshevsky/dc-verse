@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { createMuiTheme, makeStyles, MuiThemeProvider, Typography } from '@material-ui/core';
 import { FaFacebookF, FaFacebook, FaFacebookMessenger, FaTwitter, FaWhatsapp, FaInstagram } from 'react-icons/fa';
 import { IoShareSocial } from 'react-icons/io5';
 import { FacebookShareButton, FacebookMessengerShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
 import parse from "html-react-parser";
 import { posts } from '../dummyInfo';
+import firebase from '../firebase';
 
 const theme = createMuiTheme({
     typography:
@@ -23,11 +24,16 @@ const useStyles = makeStyles({
 
 export default function Post() 
 {
+    const [post, setPost] = useState('');
     const classes = useStyles();
+
+    useEffect(() => {
+        firebase.getPost('פוסט לבדיקה').then(setPost);
+    }, []);
 
     const renderText = () =>
     {
-        var paragraphs = posts[0].text.split('\n');
+        var paragraphs = post.text.split('\n');
         return (
             paragraphs.map((paragraph, index) =>
                 <div key={index}>
@@ -40,14 +46,14 @@ export default function Post()
     return (
         <div className="post-container">
             <MuiThemeProvider theme={theme}>
-                <Typography variant="h4">{posts[0].title}</Typography>
+                <Typography variant="h4">{post.title}</Typography>
                 <div className="category-and-date">
-                    <div className="category">{posts[0].category}</div>
-                    <p>{posts[0].date}</p>
+                    <div className="category">{post.category}</div>
+                    {post.date ? <p>{new Date(post.date.seconds * 1000).toLocaleDateString("en-GB")}</p> : null}
                 </div>
                 <div className="image-container">
-                    <img src={posts[0].image} alt={posts[0].title} className="main-image" />
-                    <div className="credit">קרדיט</div>
+                    <img src={post.image} alt={post.title} className="main-image" />
+                    <div className="credit">{post.credit}</div>
                 </div>
                 <div className="share-buttons">
                     <div className="share">
@@ -88,7 +94,7 @@ export default function Post()
                     </WhatsappShareButton>
                 </div>
                 <div className="text-container">
-                    {renderText()}
+                    {post ? renderText() : null}
                 </div>
                 <div className="about">
                     <div className="image-container">

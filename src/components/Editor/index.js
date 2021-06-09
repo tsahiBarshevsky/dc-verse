@@ -3,14 +3,14 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor as TextEditor } from "@ckeditor/ckeditor5-react";
 import '@ckeditor/ckeditor5-build-classic/build/translations/he';
 import { 
-    Box, Button, Checkbox, FormControl, FormGroup, FormLabel, 
-    FormControlLabel, Input, Snackbar, TextField, Typography, FormHelperText,
-    InputLabel, Select, MenuItem } from '@material-ui/core';
-    import { createMuiTheme, MuiThemeProvider, ThemeProvider, StylesProvider, jssPreset, makeStyles } from '@material-ui/core/styles';
+    Button, Checkbox, FormControl, FormGroup, FormLabel, 
+    FormControlLabel, Input, FormHelperText } from '@material-ui/core';
+import { createMuiTheme, MuiThemeProvider, StylesProvider, jssPreset, makeStyles } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import rtl from 'jss-rtl';
 import { create } from 'jss';
+import firebase from '../firebase';
 
 const theme = createMuiTheme({direction: 'rtl'});
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -207,9 +207,23 @@ export default function Editor()
                 </FormGroup>
             </FormControl>
             <div className="buttons">
-                <Button variant="contained" disabled={disableSending}>שלח</Button>
+                <Button variant="contained" onClick={addPost} disabled={disableSending}>שלח</Button>
                 <Button variant="contained" onClick={() => clearForm()}>נקה</Button>
             </div>
         </div>
     )
+
+    async function addPost()
+    {
+        try 
+        {
+                await firebase.addPost(title, date, category, text);
+                alert("הפוסט נוסף בהצלחה");
+                setDisableSending(true);
+        } 
+        catch (error) 
+        {
+            console.log(error.message);
+        }
+    }
 }
