@@ -431,3 +431,53 @@ $lg: 1920px
 
                     &:hover
                         color: $secondary
+
+/* === Editor === */
+
+.editor-container
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: flex-start
+    // height: 100vh
+    // overflow-y: auto
+    cursor: default
+    padding: 20px
+    color: $text
+    background-color: $primary
+
+    h2
+        margin-bottom: 15px
+
+    .text-editor
+        width: 100%
+        height: fit-content
+        color: black
+        cursor: text
+        margin: 20px 0
+
+        .ck-editor__editable
+            min-height: 500px
+
+    fieldset
+        width: 230px
+        border: 1px solid white
+        border-radius: 25px
+        margin-bottom: 40px
+
+    legend
+        font-size: 25px
+        font-weight: bold
+        margin-right: 25px
+        padding: 5px
+
+    .checkBox
+        font-family: "Varela Round", sans-serif
+
+    .helper
+        padding-bottom: 10px
+        text-align: right
+        margin-right: 29px
+
+    .buttons
+        display: flex

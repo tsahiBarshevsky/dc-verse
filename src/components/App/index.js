@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './styles.sass';
 import Homepage from '../Homepage';
 import Post from '../Post';
+import Editor from '../Editor';
 
 export default function App() 
 {
@@ -11,6 +12,7 @@ export default function App()
             <Switch>
                 <Route exact path="/" component={Homepage} />
                 <Route exact path="/post" component={Post} />
+                <Route exact path="/editor" component={Editor} />
             </Switch>
         </Router>
     )

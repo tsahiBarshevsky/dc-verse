@@ -3,6 +3,7 @@ import { createMuiTheme, makeStyles, MuiThemeProvider, Typography } from '@mater
 import { FaFacebookF, FaFacebook, FaFacebookMessenger, FaTwitter, FaWhatsapp, FaInstagram } from 'react-icons/fa';
 import { IoShareSocial } from 'react-icons/io5';
 import { FacebookShareButton, FacebookMessengerShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
+import parse from "html-react-parser";
 import { posts } from '../dummyInfo';
 
 const theme = createMuiTheme({
@@ -30,7 +31,7 @@ export default function Post()
         return (
             paragraphs.map((paragraph, index) =>
                 <div key={index}>
-                    <Typography gutterBottom paragraph>{paragraph}</Typography>
+                    <Typography gutterBottom paragraph>{parse(paragraph)}</Typography>
                 </div>
             )
         )
