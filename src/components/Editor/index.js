@@ -13,6 +13,7 @@ import { create } from 'jss';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProgressBar from '@ramonak/react-progress-bar';
+import { withRouter } from 'react-router-dom';
 import firebase from '../firebase';
 
 const theme = createMuiTheme({direction: 'rtl'});
@@ -26,6 +27,7 @@ const useStyles = makeStyles({
         borderRadius: 5,
         padding: '0 10px',
         backgroundColor: 'white',
+        border: '1px solid black',
         fontFamily: `"Varela Round", sans-serif`
     },
     button:
@@ -42,7 +44,7 @@ const useStyles = makeStyles({
     }
 })
 
-export default function Editor() 
+function Editor(props) 
 {
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState('');
@@ -111,6 +113,7 @@ export default function Editor()
         setCategory('');
         setText('');
         setDate(new Date());
+        setCredit('');
     }
 
     const uploadMainImage = (e) =>
@@ -199,6 +202,7 @@ export default function Editor()
                             value={date}
                             onChange={handleDateChange}
                             className={classes.input}
+                            InputProps={{disableUnderline: true}}
                             KeyboardButtonProps={{'aria-label': 'change date',}} />
                     </MuiPickersUtilsProvider>
                     <FormControl margin="normal" fullWidth>
@@ -252,7 +256,7 @@ export default function Editor()
                 />
             </div>
             <FormControl required error={errorCheck} component="fieldset">
-                <FormLabel component="legend" style={!errorCheck ? {color: '#f9f6f7'} : null}>צ'ק ליסט</FormLabel>
+                <FormLabel component="legend" style={!errorCheck ? {color: '#000000'} : null}>צ'ק ליסט</FormLabel>
                 <FormGroup>
                     <FormControlLabel
                         control=
@@ -261,11 +265,11 @@ export default function Editor()
                                 checked={checkTitle}
                                 onChange={handleChange} 
                                 name="checkTitle"
-                                iconStyle={{fill: '#f9f6f7'}}
-                                inputStyle={{color:'#f9f6f7'}}
-                                style={{color:'#f9f6f7'}} />
+                                iconStyle={{fill: '#000000'}}
+                                inputStyle={{color:'#000000'}}
+                                style={{color:'#000000'}} />
                             }
-                        label={<p style={{color: '#f9f6f7'}}>כותרת</p>}
+                        label={<p style={{color: '#000000'}}>כותרת</p>}
                         className="checkBox"
                         disabled={disableTitle}
                     />
@@ -276,11 +280,11 @@ export default function Editor()
                                 checked={checkCategory} 
                                 onChange={handleChange} 
                                 name="checkCategory" 
-                                iconStyle={{fill: '#f9f6f7'}}
-                                inputStyle={{color:'#f9f6f7'}}
-                                style={{color:'#f9f6f7'}} />
+                                iconStyle={{fill: '#000000'}}
+                                inputStyle={{color:'#000000'}}
+                                style={{color:'#000000'}} />
                         }
-                        label={<p style={{color: '#f9f6f7'}}>קטגוריה</p>}
+                        label={<p style={{color: '#000000'}}>קטגוריה</p>}
                         className="checkBox"
                         disabled={disableCategory}
                     />
@@ -291,15 +295,15 @@ export default function Editor()
                                 checked={checkText}
                                 onChange={handleChange} 
                                 name="checkText"
-                                iconStyle={{fill: '#f9f6f7'}}
-                                inputStyle={{color:'#f9f6f7'}}
-                                style={{color:'#f9f6f7'}} />
+                                iconStyle={{fill: '#000000'}}
+                                inputStyle={{color:'#000000'}}
+                                style={{color:'#000000'}} />
                         }
-                        label={<p style={{color: '#f9f6f7'}}>טקסט</p>}
+                        label={<p style={{color: '#000000'}}>טקסט</p>}
                         className="checkBox"
                         disabled={disableText}
                     />
-                    <FormHelperText className="helper" style={!errorCheck ? {color: '#f9f6f7'} : null}>
+                    <FormHelperText className="helper" style={!errorCheck ? {color: '#000000'} : null}>
                         {!errorCheck ? "יאללה, שגר אותו!" : "אופס, לא סימנת הכל"}
                     </FormHelperText>
                 </FormGroup>
@@ -329,8 +333,12 @@ export default function Editor()
         try 
         {
             await firebase.addPost(title, date, category, text, image, credit);
-            notify("success", "הפוסט נוסף בהצלחה");
+            notify("success", "הפוסט נוסף בהצלחה! מיד תועבר לדשבורד");
             setDisableSending(true);
+            setTimeout(() => 
+            {
+                props.history.replace("/dashboard");
+            }, 5000);
         } 
         catch (error) 
         {
@@ -339,3 +347,5 @@ export default function Editor()
         }
     }
 }
+
+export default withRouter(Editor);
