@@ -14,7 +14,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProgressBar from '@ramonak/react-progress-bar';
 import { withRouter } from 'react-router-dom';
-import parse from "html-react-parser";
 import firebase from '../firebase';
 
 const theme = createMuiTheme({direction: 'rtl'});
@@ -47,6 +46,7 @@ const useStyles = makeStyles({
 
 function Editor(props) 
 {
+    const [posts, setPosts] = useState('');
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState('');
     const [date, setDate] = useState(new Date());
@@ -70,6 +70,7 @@ function Editor(props)
 
     useEffect(() => {
         document.title = `DC Verse | הוספת פוסט חדש`;
+        firebase.getAllPosts().then(setPosts);
         if (!errorCheck) 
             setDisableSending(false);
         else
@@ -165,6 +166,22 @@ function Editor(props)
         }
     }
 
+    const titleAvailability = () =>
+    {
+        var fault = false;
+        for (var i=0; i<posts.length; i++)
+        {
+            if (posts[i].title === title)
+            {
+                fault = true;
+                break;
+            }
+        }
+        if (fault)
+            return false;
+        return true;
+    }
+
     return (
         <div className="editor-container">
             <h2>הוספת פוסט חדש</h2>
@@ -247,7 +264,7 @@ function Editor(props)
                     config=
                     {{
                         language: 'he',
-                        toolbar: ['heading', '|', 'bold', 'italic', '|', 'link', 'blockquote', '|' , 'undo', 'redo']
+                        toolbar: ['heading', '|', 'bold', 'italic', '|', 'link', '|' , 'undo', 'redo']
                     }}
                     editor={ClassicEditor}
                     data={text}
@@ -332,33 +349,26 @@ function Editor(props)
 
     async function addPost()
     {
-        try 
-        {
-            var parsedText = '';
-            const temp = parse(text).props.children;
-            if (typeof temp !== 'string')
+        if (titleAvailability())
+            try 
             {
-                for (var i=0; i<temp.length; i++)
-                    if (typeof temp[i] === 'string')
-                        parsedText += temp[i];
+                var parsedText = text.replace(/<[^>]+>/g, '');
+                const preview = parsedText.length >= 220 ? `${parsedText.slice(0, 220)}...` : parsedText;
+                await firebase.addPost(title, date, category, text, preview, image, credit);
+                notify("success", "הפוסט נוסף בהצלחה! מיד תועבר לדשבורד");
+                setDisableSending(true);
+                setTimeout(() => 
+                {
+                    props.history.replace("/dashboard");
+                }, 5000);
+            } 
+            catch (error) 
+            {
+                notify('error', 'קרתה שגיאה');
+                console.log(error.message);
             }
-            else
-                parsedText = parse(text).props.children;
-            const preview = parsedText.length >= 220 ? `${parsedText.slice(0, 220)}...` : parsedText;
-            console.log(preview);
-            await firebase.addPost(title, date, category, text, preview, image, credit);
-            notify("success", "הפוסט נוסף בהצלחה! מיד תועבר לדשבורד");
-            setDisableSending(true);
-            setTimeout(() => 
-            {
-                props.history.replace("/dashboard");
-            }, 5000);
-        } 
-        catch (error) 
-        {
-            notify('error', 'קרתה שגיאה');
-            console.log(error.message);
-        }
+        else
+            notify('error', 'כבר יש לך פוסט בשם הזה');
     }
 }
 

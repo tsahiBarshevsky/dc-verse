@@ -12,7 +12,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProgressBar from '@ramonak/react-progress-bar';
 import { withRouter } from 'react-router-dom';
-import parse from "html-react-parser";
 import firebase from '../firebase';
 
 const theme = createMuiTheme({direction: 'rtl'});
@@ -43,7 +42,7 @@ const useStyles = makeStyles({
     }
 })
 
-function EditPost(props) 
+function EditPost(props)
 {
     const title = props.match.params.title.replaceAll('-', ' ');
     const [post, setPost] = useState({});
@@ -70,9 +69,11 @@ function EditPost(props)
             setDate(new Date(post.date.seconds * 1000));
         }
         setText(post.text);
+        setImage(post.image);
+        setCredit(post.credit);
     }, [post, firstRun, title]);
 
-    const handleDateChange = (date) => 
+    const handleDateChange = (date) =>
     {
         setDate(date);
     }
@@ -81,8 +82,8 @@ function EditPost(props)
 	{
 		if (e.target.files[0])
 		{
-			try 
-			{	
+			try
+			{
                 notify("success", "ההעלאה התחילה");
                 const uploadTask = firebase.storage.ref(`posts/${title}`).put(e.target.files[0]);
                 uploadTask.on(
@@ -102,8 +103,8 @@ function EditPost(props)
                         ).then(notify("success", "התמונה עלתה בהצלחה")).then(setProgress(0));
                     }
                 );
-			} 
-			catch (error) 
+			}
+			catch (error)
 			{
 				console.log(error.message);
 			}
@@ -133,11 +134,11 @@ function EditPost(props)
                         <Input
                             id="category" name="category"
                             variant="outlined"
-                            autoComplete="off" 
-                            value={category} 
+                            autoComplete="off"
+                            value={category}
                             className={classes.input}
                             placeholder="קטגוריה..."
-                            disableUnderline 
+                            disableUnderline
                             onChange={e => setCategory(e.target.value)} />
                     </FormControl>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -158,17 +159,17 @@ function EditPost(props)
                         <Input
                             id="credit" name="credit"
                             variant="outlined"
-                            autoComplete="off" 
-                            value={credit} 
+                            autoComplete="off"
+                            value={credit}
                             className={classes.input}
                             placeholder="קרדיט תמונה ראשית..."
-                            disableUnderline 
+                            disableUnderline
                             onChange={e => setCredit(e.target.value)} />
                     </FormControl>
                     <div className="image-uploader">
-                        <Button 
-                            variant="contained" 
-                            component="label" 
+                        <Button
+                            variant="contained"
+                            component="label"
                             className={classes.button}>
                             העלאת תמונה ראשית
                             <input
@@ -182,9 +183,9 @@ function EditPost(props)
                         {progress > 0 ?
                         <ProgressBar
                             width="250px"
-							completed={progress} 
-							bgColor="#ffa301" 
-							labelColor="#ffffff" 
+							completed={progress}
+							bgColor="#ffa301"
+							labelColor="#ffffff"
 							labelAlignment="center" /> : null}
                     </div>
                 </MuiThemeProvider>
@@ -194,11 +195,11 @@ function EditPost(props)
                     config=
                     {{
                         language: 'he',
-                        toolbar: ['heading', '|', 'bold', 'italic', '|', 'link', 'blockquote', '|', 'undo', 'redo']
+                        toolbar: ['heading', '|', 'bold', 'italic', '|', 'link', '|', 'undo', 'redo']
                     }}
                     editor={ClassicEditor}
                     data={text}
-                    onChange={(event, editor) => 
+                    onChange={(event, editor) =>
                     {
                         setText(editor.getData());
                     }}
@@ -206,7 +207,7 @@ function EditPost(props)
             </div>
             <div className="buttons">
                 <Button className="button"
-                    variant="contained" 
+                    variant="contained"
                     onClick={editPost}
                     >שלח</Button>
             </div>
@@ -224,27 +225,18 @@ function EditPost(props)
     {
         if (category !== '' && text !== '')
         {
-            try 
+            try
             {
-                var parsedText = '';
-                const temp = parse(text).props.children;
-                if (typeof temp !== 'string')
-                {
-                    for (var i=0; i<temp.length; i++)
-                        if (typeof temp[i] === 'string')
-                            parsedText += temp[i];
-                }
-                else
-                    parsedText = parse(text).props.children;
+                var parsedText = text.replace(/<[^>]+>/g, '');
                 const preview = parsedText.length >= 220 ? `${parsedText.slice(0, 220)}...` : parsedText;
                 await firebase.editPost(title, date, category, text, preview, image, credit);
                 notify("success", 'הפוסט עודכן בהצלחה! מיד תועבר לדשבורד')
-                setTimeout(() => 
+                setTimeout(() =>
                 {
                     props.history.replace("/dashboard");
                 }, 5000);
-            } 
-            catch (error) 
+            }
+            catch (error)
             {
                 console.log(error.message);
                 notify('error', 'קרתה שגיאה בלתי צפויה!');

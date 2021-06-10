@@ -56,6 +56,12 @@ class Firebase
         return null;
     }
 
+    async getAllPosts()
+    {
+        const snapshot = await app.firestore().collection('posts').get();
+        return snapshot.docs.map(doc => doc.data());
+    }
+
     deletePost(title)
     {
         const storageRef = this.storage.ref();

@@ -27,7 +27,7 @@ export default function Post()
     const classes = useStyles();
 
     useEffect(() => {
-        firebase.getPost('פוסט לבדיקה 2').then(setPost);
+        firebase.getPost('בדיקה').then(setPost);
     }, []);
 
     const renderText = () =>
