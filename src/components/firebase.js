@@ -42,6 +42,21 @@ class Firebase
             return doc.data();
         return null;
     }
+
+    deletePost(title)
+    {
+        const storageRef = this.storage.ref();
+
+        // delete main image
+        var mainImageRef = storageRef.child(`posts/${title}`);
+        mainImageRef.delete().then(() => {
+            console.log("Main image deleted");
+        }).catch((error) => {
+            console.log(error.message);
+        });
+        
+        return this.db.collection('posts').doc(`${title}`).delete();
+    }
 }
 
 export default new Firebase();
