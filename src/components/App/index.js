@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './styles.sass';
 import Homepage from '../Homepage';
 import Post from '../Post';
-import Editor from '../Editor';
+import Editor from '../Editor/add';
+import EditPost from '../Editor/edit';
 import Dashboard from '../Dashboard';
 
 export default function App() 
@@ -15,6 +16,7 @@ export default function App()
                 <Route exact path="/post" component={Post} />
                 <Route exact path="/dashboard" component={Dashboard} />
                 <Route exact path="/editor" component={Editor} />
+                <Route exact path="/editor/:title" component={EditPost} />
             </Switch>
         </Router>
     )

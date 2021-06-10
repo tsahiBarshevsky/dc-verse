@@ -68,6 +68,7 @@ function Editor(props)
     const classes = useStyles();
 
     useEffect(() => {
+        document.title = `DC Verse | הוספת פוסט חדש`;
         if (!errorCheck) 
             setDisableSending(false);
         else
@@ -245,7 +246,7 @@ function Editor(props)
                     config=
                     {{
                         language: 'he',
-                        toolbar: ['heading', '|', 'bold', 'italic', '|', 'link', '|', 'block quote', 'undo', 'redo']
+                        toolbar: ['heading', '|', 'bold', 'italic', '|', 'link', 'blockquote', '|' , 'undo', 'redo']
                     }}
                     editor={ClassicEditor}
                     data={text}

@@ -34,6 +34,17 @@ class Firebase
         });
     }
 
+    async editPost(title, date, category, text, image, credit)
+    {
+        this.db.collection('posts').doc(`${title}`).update({
+            date: date,
+            category: category,
+            text: text,
+            image: image,
+            credit: credit
+        });
+    }
+
     async getPost(title)
     {
         const reference = this.db.collection(`posts`).doc(`${title}`);

@@ -10,6 +10,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import WarningIcon from '@material-ui/icons/Warning';
 import { ToastContainer, toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 import PostsTable from './table';
 import Navbar from './navbar';
 
@@ -126,7 +127,7 @@ function Dashboard()
         }
     }
 
-    return (
+    return posts ? (
         <>
             <Navbar />
             <div className="dashboard-container">
@@ -168,7 +169,7 @@ function Dashboard()
                 pauseOnHover
             />
         </>
-    )
+    ) : <div className="full-container"><h1>טוען נתונים...</h1></div>
 
     async function buildPostsTable()
     {
@@ -185,7 +186,9 @@ function Dashboard()
                     <>
                         <Tooltip title={<h2 style={{fontWeight: 100}}>עריכה</h2>} placement="left" arrow>
                             <span>
-                                <IconButton className={classes.actionButton}>
+                                <IconButton component={Link}
+                                    className={classes.actionButton}
+                                    to={{pathname: `/editor/${doc.data().title.replace(/\s+/g, '-')}`}}>
                                     <EditRoundedIcon />
                                 </IconButton>
                             </span>
