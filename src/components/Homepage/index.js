@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Divider, makeStyles } from '@material-ui/core';
 import NewsTicker from 'react-advanced-news-ticker';
-// import InstagramFeed from 'react-ig-feed';
-// import 'react-ig-feed/dist/index.css';
 import Card from '../Card';
 import logo from '../../images/logo.png';
 import { updates, categories } from '../dummyInfo';
@@ -73,5 +71,3 @@ export default function Homepage()
         </div>
     )
 }
-
-
