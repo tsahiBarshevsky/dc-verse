@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Divider, makeStyles } from '@material-ui/core';
 import NewsTicker from 'react-advanced-news-ticker';
 // import InstagramFeed from 'react-ig-feed';
 // import 'react-ig-feed/dist/index.css';
 import Card from '../Card';
 import logo from '../../images/logo.png';
-import { posts, updates, categories } from '../dummyInfo';
+import { updates, categories } from '../dummyInfo';
+import firebase from '../firebase';
 
 const useStyles = makeStyles({
     divider:
@@ -19,7 +20,12 @@ const useStyles = makeStyles({
 
 export default function Homepage() 
 {
+    const [recentPosts, setRecentPosts] = useState([]);
     const classes = useStyles();
+
+    useEffect(() => {
+        firebase.getRecentPosts().then(setRecentPosts);
+    }, []);
 
     return (
         <div className="homepage-container">
@@ -43,8 +49,8 @@ export default function Homepage()
             <div className="content">
                 <div className="posts">
                     <h3 className="title">פוסטים אחרונים</h3>
-                    {posts.map((post) =>
-                        <div key={post.id}>
+                    {recentPosts.map((post, index) =>
+                        <div key={index}>
                             <Card post={post} />
                         </div>
                     )}

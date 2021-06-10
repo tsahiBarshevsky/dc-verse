@@ -12,6 +12,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProgressBar from '@ramonak/react-progress-bar';
 import { withRouter } from 'react-router-dom';
+import parse from "html-react-parser";
 import firebase from '../firebase';
 
 const theme = createMuiTheme({direction: 'rtl'});
@@ -225,7 +226,18 @@ function EditPost(props)
         {
             try 
             {
-                await firebase.editPost(title, date, category, text, image, credit);
+                var parsedText = '';
+                const temp = parse(text).props.children;
+                if (typeof temp !== 'string')
+                {
+                    for (var i=0; i<temp.length; i++)
+                        if (typeof temp[i] === 'string')
+                            parsedText += temp[i];
+                }
+                else
+                    parsedText = parse(text).props.children;
+                const preview = parsedText.length >= 220 ? `${parsedText.slice(0, 220)}...` : parsedText;
+                await firebase.editPost(title, date, category, text, preview, image, credit);
                 notify("success", 'הפוסט עודכן בהצלחה! מיד תועבר לדשבורד')
                 setTimeout(() => 
                 {

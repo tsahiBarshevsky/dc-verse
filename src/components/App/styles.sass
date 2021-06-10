@@ -66,14 +66,21 @@ $lg: 1920px
             color: $secondary
             transition: 0.5s ease-in
 
-    img
-        width: 325px
-        height: 210px
-        object-fit: cover
-        object-position: center center
+    .image-container
+        position: relative
+        width: fit-content
 
         @media screen and ( max-width: $sm )
             width: 100%
+
+        .main-image
+            width: 325px
+            height: 210px
+            object-fit: cover
+            object-position: center center
+
+            @media screen and ( max-width: $sm )
+                width: 100%
 
     .information
         display: flex
@@ -273,7 +280,6 @@ $lg: 1920px
         position: relative
         width: fit-content
         height: 450px
-        background-color: lightblue
 
         .main-image
             width: 775px

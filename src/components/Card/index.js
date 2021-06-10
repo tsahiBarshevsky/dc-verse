@@ -5,14 +5,16 @@ export default function Card({post})
 {
     return (
         <div className="card-container">
-            <img src={post.image} alt={post.title} />
+            <div className="image-container">
+                <img src={post.image} alt={post.title} className="main-image" />
+            </div>
             <div className="information">
                 <Link to='/post' className="link">{post.title}</Link>
                 <div className="category-and-date">
                     <div className="category">{post.category}</div>
-                    <p>{post.date}</p>
+                    <p>{new Date(post.date.seconds * 1000).toLocaleDateString('en-GB')}</p>
                 </div>
-                <p>{post.text.length >= 220 ? `${post.text.slice(0, 220)}...` : post.text}</p>
+                <p>{post.preview}</p>
             </div>
         </div>
     )

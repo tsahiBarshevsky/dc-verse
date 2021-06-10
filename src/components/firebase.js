@@ -22,24 +22,26 @@ class Firebase
         this.storage = app.storage();
     }
 
-    addPost(title, date, category, text, image, credit)
+    addPost(title, date, category, text, preview, image, credit)
     {
         return this.db.doc(`posts/${title}`).set({
             title: title,
             date: date,
             category: category,
             text: text,
+            preview: preview,
             image: image,
             credit: credit
         });
     }
 
-    async editPost(title, date, category, text, image, credit)
+    async editPost(title, date, category, text, preview, image, credit)
     {
         this.db.collection('posts').doc(`${title}`).update({
             date: date,
             category: category,
             text: text,
+            preview: preview,
             image: image,
             credit: credit
         });
@@ -67,6 +69,18 @@ class Firebase
         });
         
         return this.db.collection('posts').doc(`${title}`).delete();
+    }
+
+    async getRecentPosts()
+    {
+        var recent = [], ret = [];
+        const snapshot = await app.firestore().collection('posts').get();
+        snapshot.docs.map(doc => recent.push(doc.data()));
+        var sorted = recent.sort((a,b) => (a.date < b.date) ? 1 : ((b.date < a.date) ? -1 : 0));
+        for (var i=0; i<2; i++)
+            // if (new Date(sorted[i].date.seconds * 1000) <= new Date().setHours(23, 59, 59, 59))
+                ret.push(sorted[i]);
+        return ret;
     }
 }
 

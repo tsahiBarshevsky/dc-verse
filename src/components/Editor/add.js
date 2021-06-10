@@ -14,6 +14,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProgressBar from '@ramonak/react-progress-bar';
 import { withRouter } from 'react-router-dom';
+import parse from "html-react-parser";
 import firebase from '../firebase';
 
 const theme = createMuiTheme({direction: 'rtl'});
@@ -333,7 +334,19 @@ function Editor(props)
     {
         try 
         {
-            await firebase.addPost(title, date, category, text, image, credit);
+            var parsedText = '';
+            const temp = parse(text).props.children;
+            if (typeof temp !== 'string')
+            {
+                for (var i=0; i<temp.length; i++)
+                    if (typeof temp[i] === 'string')
+                        parsedText += temp[i];
+            }
+            else
+                parsedText = parse(text).props.children;
+            const preview = parsedText.length >= 220 ? `${parsedText.slice(0, 220)}...` : parsedText;
+            console.log(preview);
+            await firebase.addPost(title, date, category, text, preview, image, credit);
             notify("success", "הפוסט נוסף בהצלחה! מיד תועבר לדשבורד");
             setDisableSending(true);
             setTimeout(() => 
