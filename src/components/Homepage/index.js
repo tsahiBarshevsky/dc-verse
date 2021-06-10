@@ -34,12 +34,13 @@ export default function Homepage()
             </div>
             <NewsTicker 
                 maxRows={1} 
-                rowHeight={35}
+                rowHeight={23}
                 speed={1000}
+                duration={2000}
                 className="ticker">
                 {updates.map((update) =>
                     <div key={update.id}>
-                        <h2>{update.date} | {update.content}</h2>
+                        <h3>{update.date} | {update.content}</h3>
                     </div>
                 )}
             </NewsTicker>

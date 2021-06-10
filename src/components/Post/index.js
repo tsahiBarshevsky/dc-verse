@@ -21,14 +21,15 @@ const useStyles = makeStyles({
     whatsapp: { color: '#25D366 '},
 });
 
-export default function Post() 
+export default function Post(props) 
 {
+    const title = props.match.params.title.replaceAll('-', ' ');
     const [post, setPost] = useState('');
     const classes = useStyles();
 
     useEffect(() => {
-        firebase.getPost('בדיקה').then(setPost);
-    }, []);
+        firebase.getPost(title).then(setPost);
+    }, [title]);
 
     const renderText = () =>
     {
@@ -42,13 +43,13 @@ export default function Post()
         )
     }
 
-    return (
+    return post ? (
         <div className="post-container">
             <MuiThemeProvider theme={theme}>
                 <Typography variant="h4">{post.title}</Typography>
                 <div className="category-and-date">
                     <div className="category">{post.category}</div>
-                    {post.date ? <p>{new Date(post.date.seconds * 1000).toLocaleDateString("en-GB")}</p> : null}
+                    <p>{new Date(post.date.seconds * 1000).toLocaleDateString("en-GB")}</p>
                 </div>
                 <div className="image-container">
                     <img src={post.image} alt={post.title} className="main-image" />
@@ -113,5 +114,5 @@ export default function Post()
                 </div>
             </MuiThemeProvider>
         </div>
-    )
+    ) : <div className="full-container">רגע..</div>
 }
