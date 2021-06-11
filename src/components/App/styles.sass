@@ -772,3 +772,62 @@ $lg: 1920px
             background-color: $secondary
             margin-left: 15px
             border-radius: 10px
+
+/* === Admin === */
+
+.admin-container
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    cursor: default
+    color: white
+    background-color: #222222
+    height: 100vh
+    width: 100vw
+    overflow-y: auto
+    padding: 10px
+
+    &::after
+        content: ''
+        display: block
+        position: absolute
+        left: 0
+        top: 0
+        width: 100%
+        height: 100%
+        opacity: 0.05
+        background-image: url('../../images/328905.jpg')
+        background-repeat: no-repeat
+        background-position: 50% 0
+        background-position-y: center
+        background-size: cover
+        filter: blur(1.5px)
+
+    form
+        display: flex
+        flex-direction: column
+        justify-content: flex-start
+        align-items: center
+        width: 100%
+        padding-top: 8px
+        cursor: default
+        z-index: 10
+
+        h3
+            color: white
+            align-self: flex-start
+            transform: translateY(50%)
+            letter-spacing: 3px
+
+        .adornment
+            margin-left: 20px
+
+        .visibility
+            cursor: pointer
+            margin-left: 13px
+            opacity: 0.5
+            transition: opacity 0.3s ease-in-out
+
+            &:hover
+                opacity: 1

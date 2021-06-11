@@ -6,6 +6,7 @@ import Post from '../Post';
 import Editor from '../Editor/add';
 import EditPost from '../Editor/edit';
 import Dashboard from '../Dashboard';
+import Admin from '../Admin';
 
 export default function App() 
 {
@@ -13,6 +14,7 @@ export default function App()
         <Router>
             <Switch>
                 <Route exact path="/" component={Homepage} />
+                <Route exact path="/admin" component={Admin} />
                 <Route exact path="/dashboard" component={Dashboard} />
                 <Route exact path="/editor" component={Editor} />
                 <Route exact path="/:title" component={Post} />
