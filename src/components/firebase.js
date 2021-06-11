@@ -104,6 +104,25 @@ class Firebase
                 counter++;
             }
             if (counter === 4)
+            break;
+        }
+        return ret;
+    }
+    
+    async getRelatedByCategory(title, category)
+    {
+        var related = [], ret = [], counter = 0;
+        const snapshot = await app.firestore().collection('posts').where("category", "==", category).get();
+        snapshot.docs.map(doc => related.push(doc.data()));
+        var sorted = related.sort((a,b) => (a.date < b.date) ? 1 : ((b.date < a.date) ? -1 : 0));
+        for (var i=0; i<sorted.length; i++)
+        {
+            if (sorted[i].title !== title && new Date(sorted[i].date.seconds * 1000) <= new Date().setHours(23, 59, 59, 59))
+            {
+                ret.push(sorted[i]);
+                counter++;
+            }
+            if (counter === 3)
                 break;
         }
         return ret;

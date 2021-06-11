@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { createMuiTheme, makeStyles, MuiThemeProvider, Typography, Divider } from '@material-ui/core';
+import { createMuiTheme, makeStyles, MuiThemeProvider, Typography, Divider, Grid } from '@material-ui/core';
 import { FaFacebookF, FaFacebook, FaFacebookMessenger, FaTwitter, FaWhatsapp, FaInstagram } from 'react-icons/fa';
 import { IoShareSocial } from 'react-icons/io5';
 import { FacebookShareButton, FacebookMessengerShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
 import parse from "html-react-parser";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import LastPostsCard from '../Cards/lastPosts';
 import RelatedPostCard from '../Cards/related';
 import firebase from '../firebase';
@@ -33,7 +34,7 @@ const useStyles = makeStyles({
     {
         width: '100%',
         marginTop: 20,
-        marginBottom: 20,
+        marginBottom: 30,
         backgroundColor: '#88888833'
     }
 });
@@ -43,7 +44,9 @@ export default function Post(props)
     const title = props.match.params.title.replaceAll('-', ' ');
     const [post, setPost] = useState('');
     const [recentPosts, setRecentPosts] = useState([]);
+    const [relatedPosts, setRelatedPosts] = useState([]);
     const classes = useStyles();
+    const matches = useMediaQuery('(max-width: 836px)');
 
     useEffect(() => 
     {
@@ -54,7 +57,11 @@ export default function Post(props)
 
         // get 4 recent posts
         firebase.getRecentPosts(title).then(setRecentPosts);
-    }, [title]);
+
+        // get 3 related posts
+        if (post.category !== undefined)
+            firebase.getRelatedByCategory(title, post.category).then(setRelatedPosts);
+    }, [title, post.category]);
 
     const renderText = () =>
     {
@@ -157,7 +164,18 @@ export default function Post(props)
                 </div>
             </div>
             <Divider className={classes.divider} />
-            <RelatedPostCard />
+            <MuiThemeProvider theme={theme}>
+                <Typography variant="subtitle2">פוסטים נוספים בקטגוריה {post.category}</Typography>
+                <Grid container direction="row" justify={!matches ? "space-between" : "center"} alignItems="center">
+                    {relatedPosts.map((post, index) =>
+                        <div key={index}>
+                            <Grid item>
+                                <RelatedPostCard post={post} />
+                            </Grid>
+                        </div>
+                    )} 
+                </Grid>
+            </MuiThemeProvider>
         </div>
     ) : <div className="full-container">רגע..</div>
 }

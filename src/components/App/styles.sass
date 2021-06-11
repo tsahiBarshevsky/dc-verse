@@ -174,7 +174,10 @@ $lg: 1920px
     align-items: flex-start
     width: 370px
     height: fit-content
-    // margin: 0 0 20px
+    margin: 0 0 20px 20px
+
+    @media screen and ( max-width: $xs )
+        margin: 0 0 20px 0
 
     &:hover
         .related-posts-card-information > .link
@@ -544,7 +547,7 @@ $lg: 1920px
                 align-items: center
                 width: 100%
                 height: 100%
-                margin: 10px 0
+                margin: 25px 0
                 padding: 10px 0
                 // border: 1px solid white
 
