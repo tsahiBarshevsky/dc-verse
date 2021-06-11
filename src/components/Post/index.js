@@ -12,6 +12,14 @@ const theme = createMuiTheme({
     {
         allVariants: { fontFamily: `"Varela Round", sans-serif` },
         h6: { fontWeight: 600 },
+        subtitle2:
+        {
+            color: 'white',
+            fontSize: 20,
+            letterSpacing: 1,
+            fontWeight: 600,
+            marginBottom: 20
+        }
     }
 });
 
@@ -26,10 +34,18 @@ export default function Post(props)
 {
     const title = props.match.params.title.replaceAll('-', ' ');
     const [post, setPost] = useState('');
+    const [recentPosts, setRecentPosts] = useState([]);
     const classes = useStyles();
 
-    useEffect(() => {
+    useEffect(() => 
+    {
+        document.title = `DC Verse | ${title}`;
+
+        // get post values
         firebase.getPost(title).then(setPost);
+
+        // get 4 recent posts
+        firebase.getRecentPosts(title).then(setRecentPosts);
     }, [title]);
 
     const renderText = () =>
@@ -45,76 +61,93 @@ export default function Post(props)
     }
 
     return post ? (
-        <div className="post-container">
-            <LastPostsCard />
-            <MuiThemeProvider theme={theme}>
-                <Typography variant="h4">{post.title}</Typography>
+        <div className="post-container"> 
+            <div className="title-container">
+                <div className="title-wrapper">
+                    <Typography variant="h4">{post.title}</Typography>
+                </div>
                 <div className="category-and-date">
                     <div className="category">{post.category}</div>
                     <p>{new Date(post.date.seconds * 1000).toLocaleDateString("en-GB")}</p>
                 </div>
-                <div className="image-container">
-                    <img src={post.image} alt={post.title} className="main-image" />
-                    <div className="credit">{post.credit}</div>
-                </div>
-                <div className="share-buttons">
-                    <div className="share">
-                        <IoShareSocial style={{fontSize: 20}} />
-                        <Typography variant="subtitle1">שתף</Typography>
-                    </div>
-                    <FacebookShareButton url={window.location.href}>
-                        <div className="button">
-                            <div className="logo-container"><FaFacebookF className="logo" /></div>
-                            <div className="caption">
-                                <Typography variant="subtitle1" className={classes.facebook}>Facebook</Typography>
+            </div>
+            <div className="wrapper">
+                <div className="post">
+                    <MuiThemeProvider theme={theme}>
+                        <div className="image-container">
+                            <img src={post.image} alt={post.title} className="main-image" />
+                            <div className="credit">{post.credit}</div>
+                        </div>
+                        <div className="share-buttons">
+                            <div className="share">
+                                <IoShareSocial style={{fontSize: 20}} />
+                                <Typography variant="subtitle1">שתף</Typography>
+                            </div>
+                            <FacebookShareButton url={window.location.href}>
+                                <div className="button">
+                                    <div className="logo-container"><FaFacebookF className="logo" /></div>
+                                    <div className="caption">
+                                        <Typography variant="subtitle1" className={classes.facebook}>Facebook</Typography>
+                                    </div>
+                                </div>
+                            </FacebookShareButton>
+                            <FacebookMessengerShareButton appId="472443117195729" url={window.location.href}>
+                                <div className="button">
+                                    <div className="logo-container"><FaFacebookMessenger className="logo" /></div>
+                                    <div className="caption">
+                                        <Typography variant="subtitle1" className={classes.messenger}>Messenger</Typography>
+                                    </div>
+                                </div>
+                            </FacebookMessengerShareButton>
+                            <TwitterShareButton url={window.location.href}>
+                                <div className="button">
+                                    <div className="logo-container"><FaTwitter className="logo" /></div>
+                                    <div className="caption">
+                                        <Typography variant="subtitle1" className={classes.twitter}>Twitter</Typography>
+                                    </div>
+                                </div>
+                            </TwitterShareButton>
+                            <WhatsappShareButton url={window.location.href}>
+                                <div className="button">
+                                    <div className="logo-container"><FaWhatsapp className="logo" /></div>
+                                    <div className="caption">
+                                        <Typography variant="subtitle1" className={classes.whatsapp}>WhatsApp</Typography>
+                                    </div>
+                                </div>
+                            </WhatsappShareButton>
+                        </div>
+                        <div className="text-container">
+                            {post ? renderText() : null}
+                        </div>
+                        <div className="about">
+                            <div className="image-container">
+                                <img src="https://images.pexels.com/photos/2304123/pexels-photo-2304123.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" />
+                            </div>
+                            <div className="about-container">
+                                <Typography variant="h6">מתן קציר</Typography>
+                                <Typography variant="body1" gutterBottom>
+                                    לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית גולר מונפרר סוברט לורם שבצק יהול, לכנוץ בעריר גק ליץ, ושבעגט ליבם סולגק. בראיט ולחת צורק מונחף, בגורמי מגמש. תרבנך וסתעד לכנו סתשם השמה - לתכי מורגם בורק? לתיג ישבעס.
+                                </Typography>
+                                <div className="social-media">
+                                    <FaFacebook className="icon" />
+                                    <FaInstagram className="icon" />
+                                    <FaTwitter className="icon" />
+                                </div>
                             </div>
                         </div>
-                    </FacebookShareButton>
-                    <FacebookMessengerShareButton appId="472443117195729" url={window.location.href}>
-                        <div className="button">
-                            <div className="logo-container"><FaFacebookMessenger className="logo" /></div>
-                            <div className="caption">
-                                <Typography variant="subtitle1" className={classes.messenger}>Messenger</Typography>
-                            </div>
-                        </div>
-                    </FacebookMessengerShareButton>
-                    <TwitterShareButton url={window.location.href}>
-                        <div className="button">
-                            <div className="logo-container"><FaTwitter className="logo" /></div>
-                            <div className="caption">
-                                <Typography variant="subtitle1" className={classes.twitter}>Twitter</Typography>
-                            </div>
-                        </div>
-                    </TwitterShareButton>
-                    <WhatsappShareButton url={window.location.href}>
-                        <div className="button">
-                            <div className="logo-container"><FaWhatsapp className="logo" /></div>
-                            <div className="caption">
-                                <Typography variant="subtitle1" className={classes.whatsapp}>WhatsApp</Typography>
-                            </div>
-                        </div>
-                    </WhatsappShareButton>
+                    </MuiThemeProvider>
                 </div>
-                <div className="text-container">
-                    {post ? renderText() : null}
+                <div className="recent-posts">
+                    <MuiThemeProvider theme={theme}>
+                        <Typography variant="subtitle2">פוסטים אחרונים</Typography>
+                        {recentPosts.map((post, index) =>
+                            <div key={index}>
+                                <LastPostsCard post={post} />
+                            </div>
+                        )}
+                    </MuiThemeProvider>
                 </div>
-                <div className="about">
-                    <div className="image-container">
-                        <img src="https://images.pexels.com/photos/2304123/pexels-photo-2304123.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" />
-                    </div>
-                    <div className="about-container">
-                        <Typography variant="h6">מתן קציר</Typography>
-                        <Typography variant="body1" gutterBottom>
-                            לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית גולר מונפרר סוברט לורם שבצק יהול, לכנוץ בעריר גק ליץ, ושבעגט ליבם סולגק. בראיט ולחת צורק מונחף, בגורמי מגמש. תרבנך וסתעד לכנו סתשם השמה - לתכי מורגם בורק? לתיג ישבעס.
-                        </Typography>
-                        <div className="social-media">
-                            <FaFacebook className="icon" />
-                            <FaInstagram className="icon" />
-                            <FaTwitter className="icon" />
-                        </div>
-                    </div>
-                </div>
-            </MuiThemeProvider>
+            </div>
         </div>
     ) : <div className="full-container">רגע..</div>
 }

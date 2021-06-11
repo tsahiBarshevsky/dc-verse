@@ -295,196 +295,236 @@ $lg: 1920px
     justify-content: center
     align-items: flex-start
     cursor: default
-    padding: 20px 50px
+    padding: 40px 150px
     color: $text
     background-color: $primary
 
+    @media screen and ( max-width: 1470px )
+        padding: 40px 100px
+
+    @media screen and ( max-width: 1350px )
+        padding: 40px 50px
+
     @media screen and ( max-width: $sm )
-        padding: 10px 20px
+        padding: 20px 20px
 
-    .category-and-date
+    .title-container
         display: flex
+        flex-direction: column
         justify-content: flex-start
-        align-items: center
-        margin: 20px 0
-
-        .category
-            display: flex
-            justify-content: center
-            align-items: center
-            width: fit-content
-            height: fit-content
-            padding: 5px 10px
-            margin-left: 15px
-            color: $text
-            background-color: $secondary
-            font-weight: normal
-            letter-spacing: 1px
-            border-radius: 2px
-
-    .image-container
-        position: relative
-        width: fit-content
-        height: 450px
-
-        .main-image
-            width: 775px
-            height: 450px
-            object-fit: cover
-            object-position: center center
-
-            @media screen and ( max-width: $sm )
-                width: 100%
-
-        .credit
-            position: absolute
-            bottom: 0
-            left: 0
-            padding: 7px 15px
-            text-align: center
-            background-color: rgba(black, 0.4)
-
-    .share-buttons
-        display: flex
-        flex-wrap: wrap
-        justify-content: flex-start
-        align-items: center
-        margin: 15px 0
-        padding: 10px 0
+        align-items: flex-start
         width: 100%
 
-        .share
-            position: relative
+        .title-wrapper
+            width: 90%
+
+            @media screen and ( max-width: $md )
+                width: 100%
+
+        .category-and-date
             display: flex
-            justify-content: space-between
+            justify-content: flex-start
             align-items: center
-            width: 85px
-            height: 40px
-            color: $grey
-            border: 1px solid $grey
-            border-radius: 2px
-            margin-left: 20px
-            padding: 0 8px
+            margin: 20px 0
 
-            @media screen and ( max-width: $sm )
-                margin: 5px 0 5px 25px //top right bottom left
-
-            &::before, &::after
-                right: 100%
-                top: 50%
-                border: solid transparent
-                content: " "
-                height: 0
-                width: 0
-                position: absolute
-                pointer-events: none
-
-            &::after
-                border-color: rgba(136, 183, 213, 0)
-                border-right-color: $primary
-                border-width: 10px
-                margin-top: -10px
-
-            &::before
-                border-color: rgba(194, 225, 245, 0)
-                border-right-color: $grey
-                border-width: 12px
-                margin-top: -12px
-
-        .button
-            display: flex
-            width: 140px
-            height: 40px
-            margin-left: 10px
-            border: 1px solid rgba($secondary, 0.8)
-            border-radius: 2px
-            transition: border 0.5s ease-in-out
-
-            @media screen and ( max-width: $sm )
-                margin: 5px 0 5px 20px //top right bottom left
-
-            &:hover
-                border: 1px solid $secondary
-
-                .logo-container
-                    background-color: $secondary
-                    transition: all 0.5s ease-in
-
-            .logo-container
+            .category
                 display: flex
                 justify-content: center
                 align-items: center
-                width: 40px
-                height: 100%
-                transition: all 0.5s ease-out
-                background-color: rgba($secondary, 0.8)
+                width: fit-content
+                height: fit-content
+                padding: 5px 10px
+                margin-left: 15px
+                color: $text
+                background-color: $secondary
+                font-weight: normal
+                letter-spacing: 1px
+                border-radius: 2px
 
-                .logo
-                    font-size: 20px
-                    color: $primary
+    .wrapper
+        display: flex
+        justify-content: flex-start
+        align-items: flex-start
+        margin-top: 20px
 
-            .caption
+        @media screen and ( max-width: $md )
+            flex-direction: column
+
+        .post
+            display: flex
+            flex-direction: column
+            justify-content: flex-start
+            align-items: flex-start
+
+            .image-container
+                position: relative
+                width: fit-content
+                height: 450px
+
+                .main-image
+                    width: 775px
+                    height: 450px
+                    object-fit: cover
+                    object-position: center center
+
+                    @media screen and ( max-width: $sm )
+                        width: 100%
+
+                .credit
+                    position: absolute
+                    bottom: 0
+                    left: 0
+                    padding: 7px 15px
+                    text-align: center
+                    background-color: rgba(black, 0.4)
+
+            .share-buttons
                 display: flex
-                justify-content: center
+                flex-wrap: wrap
+                justify-content: flex-start
                 align-items: center
+                margin: 15px 0
+                padding: 10px 0
                 width: 100%
 
-    .text-container
-        width: 50%
+                .share
+                    position: relative
+                    display: flex
+                    justify-content: space-between
+                    align-items: center
+                    width: 85px
+                    height: 40px
+                    color: $grey
+                    border: 1px solid $grey
+                    border-radius: 2px
+                    margin-left: 20px
+                    padding: 0 8px
 
-        @media screen and ( max-width: $sm )
-            width: 100%
+                    @media screen and ( max-width: $sm )
+                        margin: 5px 0 5px 25px //top right bottom left
 
-    .about
-        display: flex
-        flex-direction: row
-        justify-content: flex-start
-        align-items: center
-        width: 100%
-        height: 100%
-        margin: 10px 0
-        padding: 10px 0
-        // border: 1px solid white
+                    &::before, &::after
+                        right: 100%
+                        top: 50%
+                        border: solid transparent
+                        content: " "
+                        height: 0
+                        width: 0
+                        position: absolute
+                        pointer-events: none
 
-        .image-container
-            display: flex
-            justify-content: center
-            align-items: center
-            width: fit-content
-            height: fit-content
+                    &::after
+                        border-color: rgba(136, 183, 213, 0)
+                        border-right-color: $primary
+                        border-width: 10px
+                        margin-top: -10px
 
-            img
-                width: 120px
-                height: 120px
-                border-radius: 50%
-                object-fit: cover
-                object-position: center center
+                    &::before
+                        border-color: rgba(194, 225, 245, 0)
+                        border-right-color: $grey
+                        border-width: 12px
+                        margin-top: -12px
+
+                .button
+                    display: flex
+                    width: 140px
+                    height: 40px
+                    margin-left: 10px
+                    border: 1px solid rgba($secondary, 0.8)
+                    border-radius: 2px
+                    transition: border 0.5s ease-in-out
+
+                    @media screen and ( max-width: $sm )
+                        margin: 5px 0 5px 20px //top right bottom left
+
+                    &:hover
+                        border: 1px solid $secondary
+
+                        .logo-container
+                            background-color: $secondary
+                            transition: all 0.5s ease-in
+
+                    .logo-container
+                        display: flex
+                        justify-content: center
+                        align-items: center
+                        width: 40px
+                        height: 100%
+                        transition: all 0.5s ease-out
+                        background-color: rgba($secondary, 0.8)
+
+                        .logo
+                            font-size: 20px
+                            color: $primary
+
+                    .caption
+                        display: flex
+                        justify-content: center
+                        align-items: center
+                        width: 100%
+
+            .text-container
+                width: 90%
 
                 @media screen and ( max-width: $sm )
-                    display: none
+                    width: 100%
 
-        .about-container
+            .about
+                display: flex
+                flex-direction: row
+                justify-content: flex-start
+                align-items: center
+                width: 100%
+                height: 100%
+                margin: 10px 0
+                padding: 10px 0
+                // border: 1px solid white
+
+                .image-container
+                    display: flex
+                    justify-content: center
+                    align-items: center
+                    width: fit-content
+                    height: fit-content
+
+                    img
+                        width: 120px
+                        height: 120px
+                        border-radius: 50%
+                        object-fit: cover
+                        object-position: center center
+
+                        @media screen and ( max-width: $sm )
+                            display: none
+
+                .about-container
+                    display: flex
+                    flex-direction: column
+                    justify-content: center
+                    align-items: flex-start
+                    margin-right: 20px
+                    width: 50%
+                    height: 100%
+                    // background-color: rgba(lightblue, 0.2)
+
+                    .social-media
+                        display: flex
+                        justify-content: flex-start
+                        align-items: center
+
+                        .icon
+                            font-size: 20px
+                            margin-left: 15px
+                            transition: color 0.5s ease-in-out
+
+                            &:hover
+                                color: $secondary
+
+        .recent-posts
             display: flex
             flex-direction: column
             justify-content: center
             align-items: flex-start
-            margin-right: 20px
-            width: 50%
-            height: 100%
-            // background-color: rgba(lightblue, 0.2)
-
-            .social-media
-                display: flex
-                justify-content: flex-start
-                align-items: center
-
-                .icon
-                    font-size: 20px
-                    margin-left: 15px
-                    transition: color 0.5s ease-in-out
-
-                    &:hover
-                        color: $secondary
 
 /* === Dashboard === */
 
