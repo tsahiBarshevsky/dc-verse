@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { createMuiTheme, makeStyles, MuiThemeProvider, Typography } from '@material-ui/core';
+import { createMuiTheme, makeStyles, MuiThemeProvider, Typography, Divider } from '@material-ui/core';
 import { FaFacebookF, FaFacebook, FaFacebookMessenger, FaTwitter, FaWhatsapp, FaInstagram } from 'react-icons/fa';
 import { IoShareSocial } from 'react-icons/io5';
 import { FacebookShareButton, FacebookMessengerShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
 import parse from "html-react-parser";
 import LastPostsCard from '../Cards/lastPosts';
+import RelatedPostCard from '../Cards/related';
 import firebase from '../firebase';
 
 const theme = createMuiTheme({
@@ -28,6 +29,13 @@ const useStyles = makeStyles({
     messenger: { color: '#0084ff '},
     twitter: { color: '#55acee '},
     whatsapp: { color: '#25D366 '},
+    divider:
+    {
+        width: '100%',
+        marginTop: 20,
+        marginBottom: 20,
+        backgroundColor: '#88888833'
+    }
 });
 
 export default function Post(props) 
@@ -148,6 +156,8 @@ export default function Post(props)
                     </MuiThemeProvider>
                 </div>
             </div>
+            <Divider className={classes.divider} />
+            <RelatedPostCard />
         </div>
     ) : <div className="full-container">רגע..</div>
 }

@@ -167,6 +167,74 @@ $lg: 1920px
             font-weight: 600
             margin-top: 10px
 
+.related-posts-card-container
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: flex-start
+    width: 370px
+    height: fit-content
+    // margin: 0 0 20px
+
+    &:hover
+        .related-posts-card-information > .link
+            color: $secondary
+            transition: 0.5s ease-in
+
+    .related-posts-card-image-container
+        position: relative
+        width: fit-content
+        margin-bottom: 20px
+
+        .main-image
+            width: 370px
+            height: 170px
+            object-fit: cover
+            object-position: center center
+
+    .related-posts-card-information
+        display: flex
+        flex-direction: column
+        justify-content: flex-start
+        align-items: flex-start
+        color: #767676
+        height: 100%
+
+        .link
+            text-decoration: none
+            color: $text
+            font-size: 16px
+            line-height: 15px
+            transition: 0.5s ease-out
+
+        .category-and-date
+            display: flex
+            justify-content: flex-start
+            align-items: center
+            margin: 20px 0
+
+            @media screen and ( max-width: $sm )
+                margin: 10px 0
+
+            .category
+                display: flex
+                justify-content: center
+                align-items: center
+                width: fit-content
+                height: fit-content
+                padding: 5px 10px
+                margin-left: 15px
+                color: $text
+                background-color: $secondary
+                font-weight: normal
+                letter-spacing: 1px
+                border-radius: 2px
+
+        .date
+            font-size: 11px
+            font-weight: 600
+            margin-top: 10px
+
 /* === Homepage === */
 
 .homepage-container
@@ -188,10 +256,10 @@ $lg: 1920px
         height: 800px
         // padding: 0 30px
         margin-bottom: 50px
-        background: linear-gradient(to top, #121212, #121212cc, #12121299, #12121299, #12121299), url('../../images/328974.jpg') no-repeat center center
+        background: linear-gradient(to top, #121212, #121212cc, #12121299, #12121299, #12121299), url('../../images/328905.jpg') no-repeat center center
         //background: linear-gradient(180deg, rgba(18,18,18,0.6) 0%, rgba(18,18,18,1) 98%), url('../../images/328911.png') no-repeat center center
         background-repeat: no-repeat
-        background-position: 50% 25%
+        background-position: 50% 0%
         background-size: cover
 
         .dummy-navbar
@@ -486,6 +554,10 @@ $lg: 1920px
                     align-items: center
                     width: fit-content
                     height: fit-content
+                    margin-left: 20px
+
+                    @media screen and ( max-width: $xs )
+                        display: none
 
                     img
                         width: 120px
@@ -494,17 +566,13 @@ $lg: 1920px
                         object-fit: cover
                         object-position: center center
 
-                        @media screen and ( max-width: $sm )
-                            display: none
-
                 .about-container
                     display: flex
                     flex-direction: column
                     justify-content: center
                     align-items: flex-start
-                    margin-right: 20px
-                    width: 50%
                     height: 100%
+                    // width: 50%
                     // background-color: rgba(lightblue, 0.2)
 
                     .social-media
