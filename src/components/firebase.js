@@ -1,5 +1,5 @@
 import app from 'firebase/app';
-// import 'firebase/auth';
+import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
 
@@ -17,9 +17,31 @@ class Firebase
     constructor()
     {
         app.initializeApp(firebaseConfig);
-        // this.auth = app.auth();
+        this.auth = app.auth();
         this.db = app.firestore();
         this.storage = app.storage();
+    }
+
+    isInitialized()
+    {
+        return new Promise(resolve => {
+            this.auth.onAuthStateChanged(resolve);
+        });
+    }
+
+    login(email, password)
+    {
+        return this.auth.signInWithEmailAndPassword(email, password);
+    }
+
+    logout()
+    {
+        return this.auth.signOut();
+    }
+
+    getCurrentUsername()
+    {
+        return this.auth.currentUser;
     }
 
     addPost(title, date, category, text, preview, image, credit)

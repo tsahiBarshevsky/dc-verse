@@ -73,6 +73,11 @@ function EditPost(props)
         setCredit(post.credit);
     }, [post, firstRun, title]);
 
+    if (!firebase.getCurrentUsername()) {
+		props.history.replace('/admin');
+		return null;
+	}
+
     const handleDateChange = (date) =>
     {
         setDate(date);

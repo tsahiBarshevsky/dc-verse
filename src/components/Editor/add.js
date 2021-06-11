@@ -100,6 +100,11 @@ function Editor(props)
     }, [setDisableTitle, setDisableCategory, setDisableText,
         title, category, text, errorCheck, setDisableSending]);
 
+    if (!firebase.getCurrentUsername()) {
+        props.history.replace('/admin');
+        return null;
+    }
+
     const handleDateChange = (date) => 
     {
         setDate(date);

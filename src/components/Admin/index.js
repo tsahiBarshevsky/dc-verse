@@ -4,8 +4,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withRouter } from 'react-router-dom';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import { ToastContainer, toast } from 'react-toastify';
 import Background from '../../images/328974.jpg';
-// import firebase from '../firebase';
+import firebase from '../firebase';
 
 const styles = theme => ({
 	main: 
@@ -42,7 +43,8 @@ const styles = theme => ({
 	{
 		backgroundColor: 'rgba(255, 255, 255, 0.65)',
         height: 40,
-        borderRadius: 20
+        borderRadius: 20,
+		fontFamily: `"Balsamiq Sans", sans-serif`
 	},
 	submit: 
 	{
@@ -69,72 +71,83 @@ function Admin(props) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [showPassword, setShowPassword] = useState(false);
+	document.title = 'DC Verse | כניסת מנהל';
 
-	// if (firebase.getCurrentUsername())
-	// {
-	// 	props.history.replace('/dashboard');
-	// 	return null;
-	// }
+	if (firebase.getCurrentUsername())
+	{
+		props.history.replace('/dashboard');
+		return null;
+	}
 
 	return (
 		<div className="admin-container">
 			<main className={classes.main}>
                 <Paper className={classes.paper}>
                     <form onSubmit={e => e.preventDefault() && false}>
-                        <h3>כתובת אימייל:</h3>
-                        <FormControl margin="normal" required fullWidth>
-                            <Input 
-                                className={classes.input}
-                                disableUnderline
-                                id="email" name="email" 
-                                autoFocus 
-                                value={email} 
-                                onChange={e => setEmail(e.target.value)}
-                                startAdornment={<InputAdornment className="adornment" position="start" />} />
-                        </FormControl>
+                        <h3>אימייל:</h3>
+						<div dir="ltr" className="input">
+							<FormControl margin="normal" required fullWidth>
+								<Input 
+									className={classes.input}
+									disableUnderline
+									id="email" name="email" 
+									autoFocus 
+									value={email} 
+									onChange={e => setEmail(e.target.value)}
+									startAdornment={<InputAdornment className="adornment" position="start" />} />
+							</FormControl>
+						</div>
                         <h3>סיסמה:</h3>
-                        <FormControl margin="normal" required fullWidth>
-                            <Input 
-                                className={classes.input}
-                                disableUnderline
-                                name="password" id="password"
-                                type={showPassword ? 'text' : 'password'} 
-                                autoComplete="off" 
-                                value={password} 
-                                onChange={e => setPassword(e.target.value)}
-                                startAdornment={<InputAdornment className="adornment" position="start" />}
-                                endAdornment={
-                                    <InputAdornment className="visibility" position="end"
-                                        onClick={() => setShowPassword(!showPassword)}>
-                                        {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                                    </InputAdornment>
-                                } />
-                        </FormControl>
+						<div dir="ltr" className="input">
+							<FormControl margin="normal" required fullWidth>
+								<Input 
+									className={classes.input}
+									disableUnderline
+									name="password" id="password"
+									type={showPassword ? 'text' : 'password'} 
+									autoComplete="off" 
+									value={password} 
+									onChange={e => setPassword(e.target.value)}
+									startAdornment={<InputAdornment className="adornment" position="start" />}
+									endAdornment={
+										<InputAdornment className="visibility" position="end"
+											onClick={() => setShowPassword(!showPassword)}>
+											{showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+										</InputAdornment>
+									} />
+							</FormControl>
+						</div>
                         <Button
                             type="submit"
-                            // onClick={login}
+                            onClick={login}
                             className={classes.submit}>
                             כניסה
                         </Button>
                     </form>
                 </Paper>
 		    </main>
+			<ToastContainer
+                position="bottom-center"
+                closeOnClick
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
 		</div>
 	)
 
-    // async function login() 
-	// {
-	// 	try 
-	// 	{
-	// 		await firebase.login(email, password);
-    //         props.history.replace('/dashboard');
-	// 	} 
-	// 	catch(error) 
-	// 	{
-	// 		setOpen(true);
-	// 		setError(error.message);
-	// 	}
-	// }
+    async function login() 
+	{
+		try 
+		{
+			await firebase.login(email, password);
+            props.history.replace('/dashboard');
+		} 
+		catch(error) 
+		{
+			toast.error(error.message);
+		}
+	}
 }
 
 export default withRouter(withStyles(styles)(Admin));

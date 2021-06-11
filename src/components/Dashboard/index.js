@@ -10,7 +10,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import WarningIcon from '@material-ui/icons/Warning';
 import { ToastContainer, toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import PostsTable from './table';
 import Navbar from './navbar';
 
@@ -79,7 +79,7 @@ const theme = createMuiTheme({
 	}
 });
 
-function Dashboard() 
+function Dashboard(props) 
 {
     const [posts, setPosts] = useState('');
     const [title, setTitle] = useState('');
@@ -96,11 +96,6 @@ function Dashboard()
     useEffect(() => 
     {
         document.title = `DC Verse | דבשורד`;
-        // if (update)
-        // {
-        //     buildPostsTable();
-        //     setUpdate(false);
-        // }
         async function buildPostsTable()
         {
             console.log("in");
@@ -154,6 +149,12 @@ function Dashboard()
             setUpdate(false);
         }
     }, [update, classes.actionButton]);
+
+    if (!firebase.getCurrentUsername()) 
+    {
+		props.history.replace('/admin');
+		return null;
+	}
 
     const handleOpen = () =>
 	{
@@ -232,4 +233,4 @@ function Dashboard()
     }
 }
 
-export default Dashboard;
+export default withRouter(Dashboard);

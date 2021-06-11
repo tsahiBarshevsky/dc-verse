@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './styles.sass';
+import firebase from '../firebase';
 import Homepage from '../Homepage';
 import Post from '../Post';
 import Editor from '../Editor/add';
@@ -10,7 +11,15 @@ import Admin from '../Admin';
 
 export default function App() 
 {
-    return (
+    const [firebaseInitialized, setFirebaseInitialized] = useState(false);
+
+	useEffect(() => {
+		firebase.isInitialized().then(val => {
+			setFirebaseInitialized(val)
+		});
+	});
+
+    return firebaseInitialized !== false ? (
         <Router>
             <Switch>
                 <Route exact path="/" component={Homepage} />
@@ -21,5 +30,5 @@ export default function App()
                 <Route exact path="/editor/:title" component={EditPost} />
             </Switch>
         </Router>
-    )
+    ) : <div className="full-container"><h1>רגע...</h1></div>
 }
