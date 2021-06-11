@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Card({post}) 
+export default function MainCard({post}) 
 {
     return (
-        <div className="card-container">
+        <div className="main-card-container">
             <div className="image-container">
                 <img src={post.image} alt={post.title} className="main-image" />
             </div>

@@ -4,6 +4,7 @@ import { FaFacebookF, FaFacebook, FaFacebookMessenger, FaTwitter, FaWhatsapp, Fa
 import { IoShareSocial } from 'react-icons/io5';
 import { FacebookShareButton, FacebookMessengerShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
 import parse from "html-react-parser";
+import LastPostsCard from '../Cards/lastPosts';
 import firebase from '../firebase';
 
 const theme = createMuiTheme({
@@ -45,6 +46,7 @@ export default function Post(props)
 
     return post ? (
         <div className="post-container">
+            <LastPostsCard />
             <MuiThemeProvider theme={theme}>
                 <Typography variant="h4">{post.title}</Typography>
                 <div className="category-and-date">

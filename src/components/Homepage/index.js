@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Divider, makeStyles } from '@material-ui/core';
 import NewsTicker from 'react-advanced-news-ticker';
-import Card from '../Card';
+import MainCard from '../Cards/main';
 import logo from '../../images/logo.png';
 import { updates, categories } from '../dummyInfo';
 import firebase from '../firebase';
@@ -22,7 +22,7 @@ export default function Homepage()
     const classes = useStyles();
 
     useEffect(() => {
-        firebase.getRecentPosts().then(setRecentPosts);
+        firebase.getFourRecentPosts().then(setRecentPosts);
     }, []);
 
     return (
@@ -50,7 +50,7 @@ export default function Homepage()
                     <h3 className="title">פוסטים אחרונים</h3>
                     {recentPosts.map((post, index) =>
                         <div key={index}>
-                            <Card post={post} />
+                            <MainCard post={post} />
                         </div>
                     )}
                 </div>

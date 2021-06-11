@@ -13,9 +13,9 @@ export default function App()
         <Router>
             <Switch>
                 <Route exact path="/" component={Homepage} />
-                <Route exact path="/:title" component={Post} />
                 <Route exact path="/dashboard" component={Dashboard} />
                 <Route exact path="/editor" component={Editor} />
+                <Route exact path="/:title" component={Post} />
                 <Route exact path="/editor/:title" component={EditPost} />
             </Switch>
         </Router>

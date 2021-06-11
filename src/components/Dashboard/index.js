@@ -96,12 +96,64 @@ function Dashboard()
     useEffect(() => 
     {
         document.title = `DC Verse | דבשורד`;
+        // if (update)
+        // {
+        //     buildPostsTable();
+        //     setUpdate(false);
+        // }
+        async function buildPostsTable()
+        {
+            console.log("in");
+            var arr = [];
+            firebase.db.collection('posts').get().then((querySnapshot) =>
+            {
+                querySnapshot.forEach((doc) => 
+                {
+                    arr.push({
+                        title: doc.data().title,
+                        category: doc.data().category,
+                        date: new Date(doc.data().date.seconds * 1000).toLocaleDateString("en-GB"),
+                        buttons: 
+                        <>
+                            <Tooltip title={<h2 style={{fontWeight: 100}}>עריכה</h2>} placement="left" arrow>
+                                <span>
+                                    <IconButton component={Link}
+                                        className={classes.actionButton}
+                                        to={{pathname: `/editor/${doc.data().title.replace(/\s+/g, '-')}`}}>
+                                        <EditRoundedIcon />
+                                    </IconButton>
+                                </span>
+                            </Tooltip>
+                            <Tooltip title={<h2 style={{fontWeight: 100}}>צפייה</h2>} placement="left" arrow>
+                                <span>
+                                    <IconButton 
+                                        component={Link}
+                                        to={{pathname: `/${doc.data().title.replace(/\s+/g, '-')}`}}
+                                        className={classes.actionButton}>
+                                        <VisibilityRoundedIcon />
+                                    </IconButton>
+                                </span>
+                            </Tooltip>
+                            <Tooltip title={<h2 style={{fontWeight: 100}}>מחיקה</h2>} placement="left" arrow>
+                                <span>
+                                    <IconButton className={classes.actionButton}
+                                        onClick={() => {setTitle(doc.data().title); handleOpen();}}>
+                                        <DeleteRoundedIcon />
+                                    </IconButton>
+                                </span>
+                            </Tooltip>
+                        </>
+                    });
+                });
+                setPosts(arr);
+            });
+        }
         if (update)
         {
             buildPostsTable();
             setUpdate(false);
         }
-    }, [update, buildPostsTable]);
+    }, [update, classes.actionButton]);
 
     const handleOpen = () =>
 	{
@@ -170,50 +222,6 @@ function Dashboard()
             />
         </>
     ) : <div className="full-container"><h1>טוען נתונים...</h1></div>
-
-    async function buildPostsTable()
-    {
-        var arr = [];
-        firebase.db.collection('posts').get().then((querySnapshot) =>
-        {
-            querySnapshot.forEach((doc) => 
-            {
-                arr.push({
-                    title: doc.data().title,
-                    category: doc.data().category,
-                    date: new Date(doc.data().date.seconds * 1000).toLocaleDateString("en-GB"),
-                    buttons: 
-                    <>
-                        <Tooltip title={<h2 style={{fontWeight: 100}}>עריכה</h2>} placement="left" arrow>
-                            <span>
-                                <IconButton component={Link}
-                                    className={classes.actionButton}
-                                    to={{pathname: `/editor/${doc.data().title.replace(/\s+/g, '-')}`}}>
-                                    <EditRoundedIcon />
-                                </IconButton>
-                            </span>
-                        </Tooltip>
-                        <Tooltip title={<h2 style={{fontWeight: 100}}>צפייה</h2>} placement="left" arrow>
-                            <span>
-                                <IconButton className={classes.actionButton}>
-                                    <VisibilityRoundedIcon />
-                                </IconButton>
-                            </span>
-                        </Tooltip>
-                        <Tooltip title={<h2 style={{fontWeight: 100}}>מחיקה</h2>} placement="left" arrow>
-                            <span>
-                                <IconButton className={classes.actionButton}
-                                    onClick={() => {setTitle(doc.data().title); handleOpen();}}>
-                                    <DeleteRoundedIcon />
-                                </IconButton>
-                            </span>
-                        </Tooltip>
-                    </>
-                });
-            });
-            setPosts(arr);
-        });
-    }
 
     async function deletePost()
     {
