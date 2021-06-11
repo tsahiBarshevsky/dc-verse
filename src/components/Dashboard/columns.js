@@ -3,7 +3,7 @@ const cell = { color: 'black', fontSize: 16 };
 
 export const columns = [
     {
-        name: <h2 style={header}>שם הפוסט</h2>,
+        name: <h2 style={header}>שם הכתבה</h2>,
         selector: 'title',
         sortable: true,
         cell: row => <div style={cell}>{row.title}</div>

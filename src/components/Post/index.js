@@ -154,7 +154,7 @@ export default function Post(props)
                 </div>
                 <div className="recent-posts">
                     <MuiThemeProvider theme={theme}>
-                        <Typography variant="subtitle2">פוסטים אחרונים</Typography>
+                        <Typography variant="subtitle2">כתבות אחרונות</Typography>
                         {recentPosts.map((post, index) =>
                             <div key={index}>
                                 <LastPostsCard post={post} />
@@ -165,7 +165,7 @@ export default function Post(props)
             </div>
             <Divider className={classes.divider} />
             <MuiThemeProvider theme={theme}>
-                <Typography variant="subtitle2">פוסטים נוספים בקטגוריה {post.category}</Typography>
+                <Typography variant="subtitle2">כתבות נוספות בקטגוריה {post.category}</Typography>
                 <Grid container direction="row" justify={!matches ? "space-between" : "center"} alignItems="center">
                     {relatedPosts.map((post, index) =>
                         <div key={index}>

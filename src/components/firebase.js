@@ -83,8 +83,8 @@ class Firebase
         const snapshot = await app.firestore().collection('posts').get();
         snapshot.docs.map(doc => recent.push(doc.data()));
         var sorted = recent.sort((a,b) => (a.date < b.date) ? 1 : ((b.date < a.date) ? -1 : 0));
-        for (var i=0; i<4; i++)
-            // if (new Date(sorted[i].date.seconds * 1000) <= new Date().setHours(23, 59, 59, 59))
+        for (var i=0; i<5; i++)
+            if (new Date(sorted[i].date.seconds * 1000) <= new Date().setHours(23, 59, 59, 59))
                 ret.push(sorted[i]);
         return ret;
     }

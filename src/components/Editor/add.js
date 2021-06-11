@@ -69,7 +69,7 @@ function Editor(props)
     const classes = useStyles();
 
     useEffect(() => {
-        document.title = `DC Verse | הוספת פוסט חדש`;
+        document.title = `DC Verse | הוספת כתבה חדשה`;
         firebase.getAllPosts().then(setPosts);
         if (!errorCheck) 
             setDisableSending(false);
@@ -184,7 +184,7 @@ function Editor(props)
 
     return (
         <div className="editor-container">
-            <h2>הוספת פוסט חדש</h2>
+            <h2>הוספת כתבה חדשה</h2>
             <StylesProvider jss={jss}>
                 <MuiThemeProvider theme={theme}>
                     <FormControl margin="normal">
@@ -355,7 +355,7 @@ function Editor(props)
                 var parsedText = text.replace(/<[^>]+>/g, '');
                 const preview = parsedText.length >= 220 ? `${parsedText.slice(0, 220)}...` : parsedText;
                 await firebase.addPost(title, date, category, text, preview, image, credit);
-                notify("success", "הפוסט נוסף בהצלחה! מיד תועבר לדשבורד");
+                notify("success", "הכתבה נוספה בהצלחה! מיד תועבר לדשבורד");
                 setDisableSending(true);
                 setTimeout(() => 
                 {
@@ -368,7 +368,7 @@ function Editor(props)
                 console.log(error.message);
             }
         else
-            notify('error', 'כבר יש לך פוסט בשם הזה');
+            notify('error', 'כבר יש לך כתבה בשם הזה');
     }
 }
 

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Divider, makeStyles } from '@material-ui/core';
-import NewsTicker from 'react-advanced-news-ticker';
 import MainCard from '../Cards/main';
-import logo from '../../images/logo.png';
-import { updates, categories } from '../dummyInfo';
+import MainArticle from '../Cards/mainArticle';
+// import logo from '../../images/logo.png';
+import { categories } from '../dummyInfo';
 import firebase from '../firebase';
 
 const useStyles = makeStyles({
@@ -28,27 +28,14 @@ export default function Homepage()
     return (
         <div className="homepage-container">
             <div className="hero-container">
-                <div className="dummy-navbar">
-                    <img src={logo} alt="" />
-                </div>
+                כל החדשות והעדכונים ביקום של DC במקום אחד
             </div>
-            <NewsTicker 
-                maxRows={1} 
-                rowHeight={23}
-                speed={1000}
-                duration={2000}
-                className="ticker">
-                {updates.map((update) =>
-                    <div key={update.id}>
-                        <h3>{update.date} | {update.content}</h3>
-                    </div>
-                )}
-            </NewsTicker>
+            {recentPosts.length > 0 ? <MainArticle post={recentPosts[0]} /> : null}
             <Divider className={classes.divider} />
             <div className="content">
                 <div className="posts">
-                    <h3 className="title">פוסטים אחרונים</h3>
-                    {recentPosts.map((post, index) =>
+                    <h3 className="title">כתבות אחרונות</h3>
+                    {recentPosts.slice(1).map((post, index) =>
                         <div key={index}>
                             <MainCard post={post} />
                         </div>

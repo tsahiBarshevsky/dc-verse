@@ -2,7 +2,6 @@ import React from 'react';
 import HomeIcon from '@material-ui/icons/Home';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import { Link, withRouter } from 'react-router-dom';
 // import firebase from '../firebase';
 
@@ -19,12 +18,7 @@ function Navbar(props)
                     <div className="space" />
                     <Link className="links" to='/editor'>
                         <PostAddIcon />
-                        <p className="text">פוסט חדש</p>
-                    </Link>
-                    <div className="space" />
-                    <Link className="links">
-                        <NoteAddIcon />
-                        <p className="text">הוסף עדכון</p>
+                        <p className="text">כתבה חדשה</p>
                     </Link>
                 </div>
                 <p className="links">

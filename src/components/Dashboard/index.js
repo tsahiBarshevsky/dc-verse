@@ -196,7 +196,7 @@ function Dashboard()
                             <WarningIcon style={warningStyle} />
                             <MuiThemeProvider theme={theme}>
                                 <Typography variant="h5">
-                                    {`מחיקת פוסט`}
+                                    {`מחיקת כתבה`}
                                 </Typography>
                             </MuiThemeProvider>
                         </div>
@@ -204,7 +204,7 @@ function Dashboard()
                     <DialogContent style={dialogBackground}>
                         <MuiThemeProvider theme={theme}>
                             <Typography variant="caption" gutterBottom>
-                                {`רגע, בטוח שאתה רוצה למחוק את הפוסט ${title}?`}
+                                {`רגע, בטוח שאתה רוצה למחוק את הכתבה ${title}?`}
                             </Typography>
                         </MuiThemeProvider>
                     </DialogContent>

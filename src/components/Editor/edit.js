@@ -56,7 +56,7 @@ function EditPost(props)
     const classes = useStyles();
 
     useEffect(() => {
-        document.title = `DC Verse | עריכת פוסט`;
+        document.title = `DC Verse | עריכת כתבה`;
         if (firstRun)
         {
             firebase.getPost(title).then(setPost);
@@ -230,7 +230,7 @@ function EditPost(props)
                 var parsedText = text.replace(/<[^>]+>/g, '');
                 const preview = parsedText.length >= 220 ? `${parsedText.slice(0, 220)}...` : parsedText;
                 await firebase.editPost(title, date, category, text, preview, image, credit);
-                notify("success", 'הפוסט עודכן בהצלחה! מיד תועבר לדשבורד')
+                notify("success", 'הכתבה עודכנה בהצלחה! מיד תועבר לדשבורד')
                 setTimeout(() =>
                 {
                     props.history.replace("/dashboard");

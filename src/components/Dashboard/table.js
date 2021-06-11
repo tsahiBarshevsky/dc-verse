@@ -24,7 +24,7 @@ export default function PostsTable({posts})
                 title=
                 {
                     <MuiThemeProvider theme={theme}>
-                        <Typography variant="h5">פוסטים</Typography>
+                        <Typography variant="h5">כתבות</Typography>
                     </MuiThemeProvider>
                 }
                 columns={columns}
