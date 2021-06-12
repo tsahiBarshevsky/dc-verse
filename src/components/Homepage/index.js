@@ -6,6 +6,8 @@ import MainArticle from '../Cards/mainArticle';
 import Footer from '../Footer';
 import Batman from '../../images/marcin-lukasik-uYpOYyJdhRE-unsplash.jpg';
 import firebase from '../firebase';
+import Navbar from '../Navbar';
+import Sidebar from '../Sidebar';
 
 const useStyles = makeStyles({
     divider:
@@ -22,6 +24,8 @@ export default function Homepage()
     const [posts, setPosts] = useState([]);
     const [recentPosts, setRecentPosts] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [isOpen, setIsOpen] = useState(false);
+    const toggle = () => {setIsOpen(!isOpen)};
     const classes = useStyles();
 
     useEffect(() => 
@@ -61,6 +65,8 @@ export default function Homepage()
 
     return (
         <div className="homepage-container">
+            <Sidebar isOpen={isOpen} toggle={toggle} />
+            <Navbar toggle={toggle} />
             <div className="hero-container">
                 כל החדשות והעדכונים ביקום של DC במקום אחד
             </div>

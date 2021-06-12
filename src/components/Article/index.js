@@ -10,6 +10,8 @@ import LastPostsCard from '../Cards/lastPosts';
 import RelatedPostCard from '../Cards/related';
 import LoadingAnimation from '../Loading';
 import Footer from '../Footer';
+import Navbar from '../Navbar';
+import Sidebar from '../Sidebar'
 import Batman from '../../images/marcin-lukasik-uYpOYyJdhRE-unsplash.jpg';
 import firebase from '../firebase';
 
@@ -69,6 +71,8 @@ export default function Article(props)
     const [relatedPosts, setRelatedPosts] = useState([]);
     const [loaded, setLoaded] = useState(false);
     const [fault, setFault] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const toggle = () => {setIsOpen(!isOpen)};
     const classes = useStyles();
     const matches = useMediaQuery('(max-width: 836px)');
 
@@ -114,6 +118,8 @@ export default function Article(props)
 
     return loaded ? (
         <>
+            <Sidebar isOpen={isOpen} toggle={toggle} />
+            <Navbar toggle={toggle} />
             <div className="post-container"> 
                 <div className="title-container">
                     <div className="title-wrapper">
