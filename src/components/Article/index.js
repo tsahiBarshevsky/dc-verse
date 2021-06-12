@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import LastPostsCard from '../Cards/lastPosts';
 import RelatedPostCard from '../Cards/related';
 import LoadingAnimation from '../Loading';
+import Batman from '../../images/marcin-lukasik-uYpOYyJdhRE-unsplash.jpg';
 import firebase from '../firebase';
 
 const theme = createMuiTheme({
@@ -171,7 +172,7 @@ export default function Article(props)
                         </div>
                         <div className="about">
                             <div className="image-container">
-                                <img src="https://images.pexels.com/photos/2304123/pexels-photo-2304123.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" />
+                                <img src={Batman} alt="Batman" />
                             </div>
                             <div className="about-container">
                                 <Typography variant="h6">מתן קציר</Typography>

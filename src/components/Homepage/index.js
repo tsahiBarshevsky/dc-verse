@@ -3,6 +3,7 @@ import { Divider, makeStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import MainCard from '../Cards/main';
 import MainArticle from '../Cards/mainArticle';
+import Batman from '../../images/marcin-lukasik-uYpOYyJdhRE-unsplash.jpg';
 import firebase from '../firebase';
 
 const useStyles = makeStyles({
@@ -59,10 +60,10 @@ export default function Homepage()
 
     return (
         <div className="homepage-container">
-            <div className="hero-container">
+            {/* <div className="hero-container">
                 כל החדשות והעדכונים ביקום של DC במקום אחד
             </div>
-            {recentPosts.length > 0 ? <MainArticle post={recentPosts[0]} /> : null}
+            {recentPosts.length > 0 ? <MainArticle post={recentPosts[0]} /> : null} */}
             <Divider className={classes.divider} />
             <div className="main-section">
                 <div className="posts">
@@ -73,22 +74,28 @@ export default function Homepage()
                         </div>
                     )}
                 </div>
-                <div className="about">
-                    <img src="https://images.pexels.com/photos/2304123/pexels-photo-2304123.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" className="about-image" />
-                    <p className="about-text">לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית גולר מונפרר סוברט לורם שבצק יהול, לכנוץ בעריר גק ליץ, ושבעגט ליבם סולגק. בראיט ולחת צורק מונחף, בגורמי מגמש. תרבנך וסתעד לכנו סתשם השמה - לתכי מורגם בורק? לתיג ישבעס.</p>
+                <div className="about-and-categories">
+                    <div className="about">
+                        <div className="about-image-container">
+                        <img src={Batman} alt="Batman" className="about-image" />
+                        </div>
+                        <p className="about-text">לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית גולר מונפרר סוברט לורם שבצק יהול, לכנוץ בעריר גק ליץ, ושבעגט ליבם סולגק. בראיט ולחת צורק מונחף, בגורמי מגמש. תרבנך וסתעד לכנו סתשם השמה - לתכי מורגם בורק? לתיג ישבעס.</p>
+                    </div>
                     <div className="top-categories">
                         <h3 className="title">קטגוריות מובילות</h3>
                         {categories.map((category) =>
                             <div key={category.id} className="category">
-                                <p>{category.name}</p>
+                                <Link className="link" to={{pathname: `/categories/${category.name}`}}>
+                                    {category.name}
+                                </Link>
                                 <p>{category.occurrences}</p>
                             </div>
                         )}
-                        <h6>לכל הקטגוריות</h6>
+                        <Link className="other-categories" to='/categories'>לכל הקטגוריות</Link>
                     </div>
                 </div>
             </div>
-            <Divider className={classes.divider} />
+            {/* <Divider className={classes.divider} />
             <div className="top-articles">
                 <h3 className="title">כתבות מובילות</h3>
                 <div className="articles">
@@ -98,7 +105,7 @@ export default function Homepage()
                         </div>
                     )}
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }
