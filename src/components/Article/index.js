@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import LastPostsCard from '../Cards/lastPosts';
 import RelatedPostCard from '../Cards/related';
 import LoadingAnimation from '../Loading';
+import Footer from '../Footer';
 import Batman from '../../images/marcin-lukasik-uYpOYyJdhRE-unsplash.jpg';
 import firebase from '../firebase';
 
@@ -212,6 +213,7 @@ export default function Article(props)
                     )} 
                 </Grid>
             </MuiThemeProvider>
+            <Footer />
         </div>
     )
     :

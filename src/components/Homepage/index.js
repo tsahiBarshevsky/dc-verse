@@ -3,6 +3,7 @@ import { Divider, makeStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import MainCard from '../Cards/main';
 import MainArticle from '../Cards/mainArticle';
+import Footer from '../Footer';
 import Batman from '../../images/marcin-lukasik-uYpOYyJdhRE-unsplash.jpg';
 import firebase from '../firebase';
 
@@ -60,10 +61,10 @@ export default function Homepage()
 
     return (
         <div className="homepage-container">
-            {/* <div className="hero-container">
+            <div className="hero-container">
                 כל החדשות והעדכונים ביקום של DC במקום אחד
             </div>
-            {recentPosts.length > 0 ? <MainArticle post={recentPosts[0]} /> : null} */}
+            {recentPosts.length > 0 ? <MainArticle post={recentPosts[0]} /> : null}
             <Divider className={classes.divider} />
             <div className="main-section">
                 <div className="posts">
@@ -95,7 +96,7 @@ export default function Homepage()
                     </div>
                 </div>
             </div>
-            {/* <Divider className={classes.divider} />
+            <Divider className={classes.divider} />
             <div className="top-articles">
                 <h3 className="title">כתבות מובילות</h3>
                 <div className="articles">
@@ -105,7 +106,9 @@ export default function Homepage()
                         </div>
                     )}
                 </div>
-            </div> */}
+            </div>
+            <Divider className={classes.divider} />
+            <Footer />
         </div>
     )
 }
