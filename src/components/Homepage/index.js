@@ -107,8 +107,7 @@ export default function Homepage()
                     )}
                 </div>
             </div>
-            <Divider className={classes.divider} />
-            <Footer />
+            <Footer origin='homepage' />
         </div>
     )
 }

@@ -113,108 +113,113 @@ export default function Article(props)
     }
 
     return loaded ? (
-        <div className="post-container"> 
-            <div className="title-container">
-                <div className="title-wrapper">
-                    <Typography variant="h4">{post.title}</Typography>
+        <>
+            <div className="post-container"> 
+                <div className="title-container">
+                    <div className="title-wrapper">
+                        <Typography variant="h4">{post.title}</Typography>
+                    </div>
+                    <div className="category-and-date">
+                        <div className="category">{post.category}</div>
+                        <p>{new Date(post.date.seconds * 1000).toLocaleDateString("en-GB")}</p>
+                    </div>
                 </div>
-                <div className="category-and-date">
-                    <div className="category">{post.category}</div>
-                    <p>{new Date(post.date.seconds * 1000).toLocaleDateString("en-GB")}</p>
-                </div>
-            </div>
-            <div className="wrapper">
-                <div className="post">
-                    <MuiThemeProvider theme={theme}>
-                        <div className="image-container">
-                            <img src={post.image} alt={post.title} className="main-image" />
-                            {post.credit ? <div className="credit">{post.credit}</div> : null}
-                        </div>
-                        <div className="share-buttons">
-                            <div className="share">
-                                <IoShareSocial style={{fontSize: 20}} />
-                                <Typography variant="subtitle1">שתף</Typography>
-                            </div>
-                            <FacebookShareButton url={window.location.href}>
-                                <div className="button">
-                                    <div className="logo-container"><FaFacebookF className="logo" /></div>
-                                    <div className="caption">
-                                        <Typography variant="subtitle1" className={classes.facebook}>Facebook</Typography>
-                                    </div>
-                                </div>
-                            </FacebookShareButton>
-                            <FacebookMessengerShareButton appId="472443117195729" url={window.location.href}>
-                                <div className="button">
-                                    <div className="logo-container"><FaFacebookMessenger className="logo" /></div>
-                                    <div className="caption">
-                                        <Typography variant="subtitle1" className={classes.messenger}>Messenger</Typography>
-                                    </div>
-                                </div>
-                            </FacebookMessengerShareButton>
-                            <TwitterShareButton url={window.location.href}>
-                                <div className="button">
-                                    <div className="logo-container"><FaTwitter className="logo" /></div>
-                                    <div className="caption">
-                                        <Typography variant="subtitle1" className={classes.twitter}>Twitter</Typography>
-                                    </div>
-                                </div>
-                            </TwitterShareButton>
-                            <WhatsappShareButton url={window.location.href}>
-                                <div className="button">
-                                    <div className="logo-container"><FaWhatsapp className="logo" /></div>
-                                    <div className="caption">
-                                        <Typography variant="subtitle1" className={classes.whatsapp}>WhatsApp</Typography>
-                                    </div>
-                                </div>
-                            </WhatsappShareButton>
-                        </div>
-                        <div className="text-container">
-                            {post ? renderText() : null}
-                        </div>
-                        <div className="about">
+                <div className="wrapper">
+                    <div className="post">
+                        <MuiThemeProvider theme={theme}>
                             <div className="image-container">
-                                <img src={Batman} alt="Batman" />
+                                <img src={post.image} alt={post.title} className="main-image" />
+                                {post.credit ? <div className="credit">{post.credit}</div> : null}
                             </div>
-                            <div className="about-container">
-                                <Typography variant="h6">מתן קציר</Typography>
-                                <Typography variant="body1" gutterBottom>
-                                    לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית גולר מונפרר סוברט לורם שבצק יהול, לכנוץ בעריר גק ליץ, ושבעגט ליבם סולגק. בראיט ולחת צורק מונחף, בגורמי מגמש. תרבנך וסתעד לכנו סתשם השמה - לתכי מורגם בורק? לתיג ישבעס.
-                                </Typography>
-                                <div className="social-media">
-                                    <FaFacebook className="icon" />
-                                    <FaInstagram className="icon" />
-                                    <FaTwitter className="icon" />
+                            <div className="share-buttons">
+                                <div className="share">
+                                    <IoShareSocial style={{fontSize: 20}} />
+                                    <Typography variant="subtitle1">שתף</Typography>
+                                </div>
+                                <FacebookShareButton url={window.location.href}>
+                                    <div className="button">
+                                        <div className="logo-container"><FaFacebookF className="logo" /></div>
+                                        <div className="caption">
+                                            <Typography variant="subtitle1" className={classes.facebook}>Facebook</Typography>
+                                        </div>
+                                    </div>
+                                </FacebookShareButton>
+                                <FacebookMessengerShareButton appId="472443117195729" url={window.location.href}>
+                                    <div className="button">
+                                        <div className="logo-container"><FaFacebookMessenger className="logo" /></div>
+                                        <div className="caption">
+                                            <Typography variant="subtitle1" className={classes.messenger}>Messenger</Typography>
+                                        </div>
+                                    </div>
+                                </FacebookMessengerShareButton>
+                                <TwitterShareButton url={window.location.href}>
+                                    <div className="button">
+                                        <div className="logo-container"><FaTwitter className="logo" /></div>
+                                        <div className="caption">
+                                            <Typography variant="subtitle1" className={classes.twitter}>Twitter</Typography>
+                                        </div>
+                                    </div>
+                                </TwitterShareButton>
+                                <WhatsappShareButton url={window.location.href}>
+                                    <div className="button">
+                                        <div className="logo-container"><FaWhatsapp className="logo" /></div>
+                                        <div className="caption">
+                                            <Typography variant="subtitle1" className={classes.whatsapp}>WhatsApp</Typography>
+                                        </div>
+                                    </div>
+                                </WhatsappShareButton>
+                            </div>
+                            <div className="text-container">
+                                {post ? renderText() : null}
+                            </div>
+                            <div className="about">
+                                <div className="image-container">
+                                    <img src={Batman} alt="Batman" />
+                                </div>
+                                <div className="about-container">
+                                    <Typography variant="h6">מתן קציר</Typography>
+                                    <Typography variant="body1" gutterBottom>
+                                        לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית גולר מונפרר סוברט לורם שבצק יהול, לכנוץ בעריר גק ליץ, ושבעגט ליבם סולגק. בראיט ולחת צורק מונחף, בגורמי מגמש. תרבנך וסתעד לכנו סתשם השמה - לתכי מורגם בורק? לתיג ישבעס.
+                                    </Typography>
+                                    <div className="social-media">
+                                        <FaFacebook className="icon" />
+                                        <FaInstagram className="icon" />
+                                        <FaTwitter className="icon" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </MuiThemeProvider>
+                        </MuiThemeProvider>
+                    </div>
+                    <div className="recent-posts">
+                        <MuiThemeProvider theme={theme}>
+                            <Typography variant="subtitle2">כתבות אחרונות</Typography>
+                            {recentPosts.map((post, index) =>
+                                <div key={index}>
+                                    <LastPostsCard post={post} />
+                                </div>
+                            )}
+                        </MuiThemeProvider>
+                    </div>
                 </div>
-                <div className="recent-posts">
+                {relatedPosts.length > 0 ?
+                <>
+                    <Divider className={classes.divider} />
                     <MuiThemeProvider theme={theme}>
-                        <Typography variant="subtitle2">כתבות אחרונות</Typography>
-                        {recentPosts.map((post, index) =>
-                            <div key={index}>
-                                <LastPostsCard post={post} />
-                            </div>
-                        )}
+                        <Typography variant="subtitle2">כתבות נוספות בקטגוריה {post.category}</Typography>
+                        <Grid container direction="row" justify={!matches ? "space-between" : "center"} alignItems="center">
+                            {relatedPosts.map((post, index) =>
+                                <div key={index}>
+                                    <Grid item>
+                                        <RelatedPostCard post={post} />
+                                    </Grid>
+                                </div>
+                            )} 
+                        </Grid>
                     </MuiThemeProvider>
-                </div>
+                </> : null}
             </div>
-            <Divider className={classes.divider} />
-            <MuiThemeProvider theme={theme}>
-                <Typography variant="subtitle2">כתבות נוספות בקטגוריה {post.category}</Typography>
-                <Grid container direction="row" justify={!matches ? "space-between" : "center"} alignItems="center">
-                    {relatedPosts.map((post, index) =>
-                        <div key={index}>
-                            <Grid item>
-                                <RelatedPostCard post={post} />
-                            </Grid>
-                        </div>
-                    )} 
-                </Grid>
-            </MuiThemeProvider>
-            <Footer />
-        </div>
+            <Footer origin="article" />
+        </>
     )
     :
     [(!fault ?
