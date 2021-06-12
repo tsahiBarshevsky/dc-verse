@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { createMuiTheme, makeStyles, MuiThemeProvider, Typography, Divider, Grid } from '@material-ui/core';
+import { createMuiTheme, makeStyles, MuiThemeProvider, Typography, Divider, Grid, Button } from '@material-ui/core';
 import { FaFacebookF, FaFacebook, FaFacebookMessenger, FaTwitter, FaWhatsapp, FaInstagram } from 'react-icons/fa';
 import { IoShareSocial } from 'react-icons/io5';
 import { FacebookShareButton, FacebookMessengerShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
 import parse from "html-react-parser";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { Link } from 'react-router-dom';
 import LastPostsCard from '../Cards/lastPosts';
 import RelatedPostCard from '../Cards/related';
+import LoadingAnimation from '../Loading';
 import firebase from '../firebase';
 
 const theme = createMuiTheme({
@@ -36,32 +38,65 @@ const useStyles = makeStyles({
         marginTop: 20,
         marginBottom: 30,
         backgroundColor: '#88888833'
+    },
+    button:
+    {
+        color: '#ffa301',
+        width: 165,
+        height: 45,
+        fontSize: 17,
+        backgroundColor: 'transparent',
+        border: '2px solid #ffa301',
+        borderRadius: 25,
+        transition: 'all 0.4s ease-out',
+        marginTop: 30,
+        zIndex: 1,
+        '&:hover':
+		{
+            color: 'white',
+			backgroundColor: '#ffa301'
+		}
     }
 });
 
-export default function Post(props) 
+export default function Article(props) 
 {
     const title = props.match.params.title.replaceAll('-', ' ');
     const [post, setPost] = useState('');
     const [recentPosts, setRecentPosts] = useState([]);
     const [relatedPosts, setRelatedPosts] = useState([]);
+    const [loaded, setLoaded] = useState(false);
+    const [fault, setFault] = useState(false);
     const classes = useStyles();
     const matches = useMediaQuery('(max-width: 836px)');
 
     useEffect(() => 
     {
-        document.title = `DC Verse | ${title}`;
+        if (!fault)
+            document.title = `DC Verse | ${title}`;
+        else
+            document.title = `DC Verse | שגיאה`;
 
         // get post values
         firebase.getPost(title).then(setPost);
 
-        // get 4 recent posts
-        firebase.getRecentPosts(title).then(setRecentPosts);
+        if (post)
+        {
+            // get 4 recent posts
+            firebase.getRecentPosts(title).then(setRecentPosts);
+            
+            // get 3 related posts
+            if (post.category !== undefined)
+                firebase.getRelatedByCategory(title, post.category).then(setRelatedPosts);
+        }
+    }, [title, post, fault]);
 
-        // get 3 related posts
-        if (post.category !== undefined)
-            firebase.getRelatedByCategory(title, post.category).then(setRelatedPosts);
-    }, [title, post.category]);
+    if (post && recentPosts && !loaded)
+        setLoaded(true);
+
+    if (post === null && !fault)
+        setFault(true); 
+
 
     const renderText = () =>
     {
@@ -75,7 +110,7 @@ export default function Post(props)
         )
     }
 
-    return post ? (
+    return loaded ? (
         <div className="post-container"> 
             <div className="title-container">
                 <div className="title-wrapper">
@@ -91,7 +126,7 @@ export default function Post(props)
                     <MuiThemeProvider theme={theme}>
                         <div className="image-container">
                             <img src={post.image} alt={post.title} className="main-image" />
-                            <div className="credit">{post.credit}</div>
+                            {post.credit ? <div className="credit">{post.credit}</div> : null}
                         </div>
                         <div className="share-buttons">
                             <div className="share">
@@ -177,5 +212,18 @@ export default function Post(props)
                 </Grid>
             </MuiThemeProvider>
         </div>
-    ) : <div className="full-container">רגע..</div>
+    )
+    :
+    [(!fault ?
+        <LoadingAnimation text="כבר מגיע..." />
+        :
+        <div className="fault-container">
+            <MuiThemeProvider theme={theme}>
+                <Typography variant="h5">הכתבה שחיפשת אינה קיימת.</Typography>
+                <Button component={Link}
+                    to="/" variant="contained"
+                    className={classes.button}>חזרה לדף הבית</Button>
+            </MuiThemeProvider>
+        </div>
+    )]
 }

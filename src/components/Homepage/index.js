@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Divider, makeStyles } from '@material-ui/core';
 import MainCard from '../Cards/main';
 import MainArticle from '../Cards/mainArticle';
-// import logo from '../../images/logo.png';
-import { categories } from '../dummyInfo';
 import firebase from '../firebase';
 
 const useStyles = makeStyles({
@@ -19,10 +17,12 @@ const useStyles = makeStyles({
 export default function Homepage() 
 {
     const [recentPosts, setRecentPosts] = useState([]);
+    const [categories, setCategories] = useState([]);
     const classes = useStyles();
 
     useEffect(() => {
         firebase.getFourRecentPosts().then(setRecentPosts);
+        firebase.categoriesDistribution().then(setCategories);
     }, []);
 
     return (
@@ -49,7 +49,7 @@ export default function Homepage()
                         {categories.map((category) =>
                             <div key={category.id} className="category">
                                 <p>{category.name}</p>
-                                <p>{category.count}</p>
+                                <p>{category.occurrences}</p>
                             </div>
                         )}
                     </div>

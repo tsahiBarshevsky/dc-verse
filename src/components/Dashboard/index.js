@@ -13,6 +13,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Link, withRouter } from 'react-router-dom';
 import PostsTable from './table';
 import Navbar from './navbar';
+import LoadingAnimation from '../Loading';
 
 const useStyles = makeStyles({
     actionButton:
@@ -222,7 +223,7 @@ function Dashboard(props)
                 pauseOnHover
             />
         </>
-    ) : <div className="full-container"><h1>טוען נתונים...</h1></div>
+    ) : <LoadingAnimation text="טוען נתונים..." />
 
     async function deletePost()
     {

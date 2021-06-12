@@ -149,6 +149,40 @@ class Firebase
         }
         return ret;
     }
+
+    async getAllPostsByCategory(category)
+    {
+        const snapshot = await app.firestore().collection('posts').where("category", "==", category).get();
+        snapshot.docs.map(doc => doc.data());
+    }
+
+    async categoriesDistribution()
+    {
+        var categories = [], a = [], b = [], ret = [], prev;
+        const snapshot = await app.firestore().collection('posts').get();
+        snapshot.docs.forEach(doc => 
+        {
+            if (new Date(doc.data().date.seconds * 1000) <= new Date().setHours(23, 59, 59, 59))
+                categories.push(doc.data().category)
+        });
+        categories.sort();
+        var i;
+        for (i = 0; i<categories.length; i++) 
+        {
+            if (categories[i] !== prev) 
+            {
+                a.push(categories[i]);
+                b.push(1);
+            } 
+            else
+                b[b.length-1]++;
+            prev = categories[i];
+        }
+        for (i=0; i<a.length; i++)
+            if (b[i] >= 3)
+                ret.push({name: a[i], occurrences: b[i]});
+        return ret.sort((a,b) => (a.occurrences < b.occurrences) ? 1 : ((b.occurrences < a.occurrences) ? -1 : 0));
+    }
 }
 
 export default new Firebase();

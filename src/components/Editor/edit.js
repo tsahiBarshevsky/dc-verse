@@ -12,6 +12,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProgressBar from '@ramonak/react-progress-bar';
 import { withRouter } from 'react-router-dom';
+import LoadingAnimation from '../Loading';
 import firebase from '../firebase';
 
 const theme = createMuiTheme({direction: 'rtl'});
@@ -224,7 +225,7 @@ function EditPost(props)
                 pauseOnHover
             />
         </div>
-    ) : <div className="full-container"><h1>טוען נתונים...</h1></div>
+    ) : <LoadingAnimation text="טוען נתונים..." />
 
     async function editPost()
     {
