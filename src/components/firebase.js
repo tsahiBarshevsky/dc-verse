@@ -179,7 +179,7 @@ class Firebase
             prev = categories[i];
         }
         for (i=0; i<a.length; i++)
-            if (b[i] >= 3)
+            // if (b[i] >= 3)
                 ret.push({name: a[i], occurrences: b[i]});
         return ret.sort((a,b) => (a.occurrences < b.occurrences) ? 1 : ((b.occurrences < a.occurrences) ? -1 : 0));
     }
