@@ -9,6 +9,7 @@ import Editor from '../Editor/add';
 import EditPost from '../Editor/edit';
 import Dashboard from '../Dashboard';
 import Admin from '../Admin';
+import Page404 from '../Page 404';
 
 export default function App() 
 {
@@ -29,6 +30,7 @@ export default function App()
                 <Route exact path="/editor" component={Editor} />
                 <Route exact path="/:title" component={Article} />
                 <Route exact path="/editor/:title" component={EditPost} />
+                <Route exact path="*" component={Page404} />
             </Switch>
         </Router>
     ) : <LoadingAnimation text="כבר מגיע..." />

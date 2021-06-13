@@ -968,6 +968,7 @@ footer
 
 .loading-container,
 .fault-container,
+.page-404-container
     display: flex
     flex-direction: column
     justify-content: center
@@ -998,6 +999,18 @@ footer
     .text
         letter-spacing: 1px
         margin-top: 15px
+
+    .title, .subtitle
+        font-weight: normal
+
+    img
+        width: 50%
+        height: auto
+        padding: 10px
+        border-radius: 20px
+
+        @media screen and ( max-width: $xs )
+            width: 100%
 
 /* === Main navbar === */
 

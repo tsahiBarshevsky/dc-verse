@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     heroDivider:
     {
         width: 80,
-        height: 10,
+        height: 8,
         marginTop: 20,
         marginBottom: 40,
         backgroundColor: '#ffa301'
