@@ -10,6 +10,7 @@ import EditPost from '../Editor/edit';
 import Dashboard from '../Dashboard';
 import Admin from '../Admin';
 import Page404 from '../Page 404';
+import Archive from '../Archive';
 
 export default function App() 
 {
@@ -27,6 +28,7 @@ export default function App()
                 <Route exact path="/" component={Homepage} />
                 <Route exact path="/admin" component={Admin} />
                 <Route exact path="/dashboard" component={Dashboard} />
+                <Route exact path="/archive" component={Archive} />
                 <Route exact path="/editor" component={Editor} />
                 <Route exact path="/:title" component={Article} />
                 <Route exact path="/editor/:title" component={EditPost} />

@@ -1171,3 +1171,25 @@ footer
             .link
                 text-decoration: none
                 color: white
+
+/* === Archive === */
+
+.archive-container
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: flex-start
+    cursor: default
+    padding: 70px 150px 0
+    color: $text
+    background-color: $primary
+
+    @media screen and ( max-width: $lg )
+        padding: 70px 100px 0
+
+    @media screen and ( max-width: $sm )
+        padding: 70px 25px 0
+
+    .title
+        margin-bottom: 15px
+        letter-spacing: 1px

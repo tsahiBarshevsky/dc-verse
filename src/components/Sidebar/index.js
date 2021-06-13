@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaTimes } from 'react-icons/fa';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Logo from '../../images/logo.png';
 
 export default function Sidebar({isOpen, toggle}) 
@@ -18,13 +18,10 @@ export default function Sidebar({isOpen, toggle})
             </div>
             <ul className="sidebar-menu">
                 <li className="sidebar-link">
-                    כל הכתבות
+                    <Link to='/archive' className="link">כל הכתבות</Link>
                 </li>
                 <li className="sidebar-link">
-                    קטגוריות    
-                </li>
-                <li className="sidebar-link">
-                    אודות   
+                    <Link to='/categories' className="link">קטגוריות</Link>  
                 </li>
             </ul>
         </aside>

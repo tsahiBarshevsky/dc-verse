@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { animateScroll } from 'react-scroll';
 import { FaBars } from 'react-icons/fa';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -42,13 +42,10 @@ export default function Navbar({toggle})
                 </div>
                 <ul className="nav-menu">
                     <li className="nav-link">
-                        כל הכתבות
+                        <Link to='/archive' className="link">כל הכתבות</Link>
                     </li>
                     <li className="nav-link">
-                        קטגוריות
-                    </li>
-                    <li className="nav-link">
-                        אודות
+                        <Link to='/categories' className="link">קטגוריות</Link>
                     </li>
                 </ul>
             </div>
