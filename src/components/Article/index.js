@@ -13,7 +13,7 @@ import Footer from '../Footer';
 import Navbar from '../Navbar';
 import Sidebar from '../Sidebar'
 import ScrollToTop from '../scrollToTop';
-import Batman from '../../images/marcin-lukasik-uYpOYyJdhRE-unsplash.jpg';
+// import Batman from '../../images/marcin-lukasik-uYpOYyJdhRE-unsplash.jpg';
 import firebase from '../firebase';
 
 const theme = createMuiTheme({

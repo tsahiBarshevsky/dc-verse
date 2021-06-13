@@ -41,7 +41,8 @@ const useStyles = makeStyles({
         {
             color: 'white',
             backgroundColor: '#ffa301',
-            transition: 'all 0.2s ease-in'
+            transition: 'all .2s ease-in',
+            transform: 'scale(1.1)'
         }
     }
 });

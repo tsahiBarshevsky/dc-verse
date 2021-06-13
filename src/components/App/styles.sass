@@ -253,7 +253,7 @@ $lg: 1920px
     justify-content: center
     align-items: flex-start
     width: 750px
-    padding: 0 100px
+    //padding: 0 100px
     // background-color: lightskyblue
     //height: fit-content
     // margin: 0 0 20px
@@ -277,6 +277,9 @@ $lg: 1920px
             height: 300px
             object-fit: cover
             object-position: center center
+
+            @media screen and ( max-width: $sm )
+                height: 210px
 
     .link
         text-decoration: none
@@ -310,7 +313,7 @@ $lg: 1920px
         height: 850px
         padding: 0 10px
         margin-bottom: 100px
-        background: linear-gradient(to top, #121212, #121212cc, #12121299, #12121299, #12121299), url('../../images/328905.jpg') no-repeat center center
+        background: linear-gradient(to top, #121212, #121212cc, #12121299, #12121299, #12121299), url('../../images/hero-background.jpg') no-repeat center center
         //background: linear-gradient(180deg, rgba(18,18,18,0.6) 0%, rgba(18,18,18,1) 98%), url('../../images/328911.png') no-repeat center center
         background-repeat: no-repeat
         background-position: 50% 0%
@@ -339,6 +342,7 @@ $lg: 1920px
             text-align: center
             font-size: 20px
             width: 50%
+            text-shadow: 2px 2px 3px black
 
     .main-section
         display: flex
