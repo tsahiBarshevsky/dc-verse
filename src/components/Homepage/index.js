@@ -6,10 +6,12 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import MainCard from '../Cards/main';
 import MainArticle from '../Cards/mainArticle';
 import Footer from '../Footer';
-import Batman from '../../images/marcin-lukasik-uYpOYyJdhRE-unsplash.jpg';
 import firebase from '../firebase';
 import Navbar from '../Navbar';
 import Sidebar from '../Sidebar';
+import ScrollToTop from '../scrollToTop';
+import Batman from '../../images/marcin-lukasik-uYpOYyJdhRE-unsplash.jpg';
+import Logo from '../../images/logo.png';
 
 const useStyles = makeStyles({
     divider:
@@ -55,6 +57,7 @@ export default function Homepage()
 
     useEffect(() => 
     {
+        document.title = 'DC Verse | דף הבית';
         firebase.getAllPosts().then(setPosts);
         firebase.getFourRecentPosts().then(setRecentPosts);
         firebase.categoriesDistribution().then(setCategories);
@@ -90,13 +93,16 @@ export default function Homepage()
 
     return (
         <div className="homepage-container">
+            <ScrollToTop />
             <Sidebar isOpen={isOpen} toggle={toggle} />
             <Navbar toggle={toggle} />
             <div className="hero-container">
-                <h1 className="title">DC Verse - כל החדשות והעדכונים החמים</h1>
+                <h1 className="title">
+                    <span className="english">DC Verse - </span><span className="hebrew">חדשות ועדכונים חמים</span>
+                </h1>
                 <Divider className={classes.heroDivider} />
                 <p className="subtitle">
-                    לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית גולר מונפרר סוברט לורם שבצק יהול, לכנוץ בעריר גק ליץ, ושבעגט ליבם סולגק. בראיט ולחת צורק מונחף, בגורמי מגמש. תרבנך וסתעד לכנו סתשם השמה - לתכי מורגם בורק? לתיג ישבעס.
+                    כל החדשות והעדכונים על המולטיוורס של דיסי בקומיקס, ביקומים הטלוויזיונים והקולנועיים 
                 </p>
                 <Scroll to="main-article"
                     exact='true' 
@@ -123,9 +129,10 @@ export default function Homepage()
                 <div className="about-and-categories">
                     <div className="about">
                         <div className="about-image-container">
-                        <img src={Batman} alt="Batman" className="about-image" />
+                            <img src={Batman} alt="Batman" className="about-image" />
                         </div>
-                        <p className="about-text">לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית גולר מונפרר סוברט לורם שבצק יהול, לכנוץ בעריר גק ליץ, ושבעגט ליבם סולגק. בראיט ולחת צורק מונחף, בגורמי מגמש. תרבנך וסתעד לכנו סתשם השמה - לתכי מורגם בורק? לתיג ישבעס.</p>
+                        <img src={Logo} alt="Logo" className="logo" />
+                        <p className="about-text">כל החדשות והעדכונים על המולטיוורס של דיסי בקומיקס, ביקומים הטלוויזיונים והקולנועיים.</p>
                     </div>
                     <div className="top-categories">
                         <h3 className="title">קטגוריות מובילות</h3>

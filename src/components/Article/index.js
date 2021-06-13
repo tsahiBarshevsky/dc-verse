@@ -12,6 +12,7 @@ import LoadingAnimation from '../Loading';
 import Footer from '../Footer';
 import Navbar from '../Navbar';
 import Sidebar from '../Sidebar'
+import ScrollToTop from '../scrollToTop';
 import Batman from '../../images/marcin-lukasik-uYpOYyJdhRE-unsplash.jpg';
 import firebase from '../firebase';
 
@@ -120,6 +121,7 @@ export default function Article(props)
         <>
             <Sidebar isOpen={isOpen} toggle={toggle} />
             <Navbar toggle={toggle} />
+            <ScrollToTop />
             <div className="post-container"> 
                 <div className="title-container">
                     <div className="title-wrapper">
@@ -178,7 +180,7 @@ export default function Article(props)
                             <div className="text-container">
                                 {post ? renderText() : null}
                             </div>
-                            <div className="about">
+                            {/* <div className="about">
                                 <div className="image-container">
                                     <img src={Batman} alt="Batman" />
                                 </div>
@@ -187,13 +189,13 @@ export default function Article(props)
                                     <Typography variant="body1" gutterBottom>
                                         לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית גולר מונפרר סוברט לורם שבצק יהול, לכנוץ בעריר גק ליץ, ושבעגט ליבם סולגק. בראיט ולחת צורק מונחף, בגורמי מגמש. תרבנך וסתעד לכנו סתשם השמה - לתכי מורגם בורק? לתיג ישבעס.
                                     </Typography>
-                                    {/* <div className="social-media">
+                                    <div className="social-media">
                                         <FaFacebook className="icon" />
                                         <FaInstagram className="icon" />
                                         <FaTwitter className="icon" />
-                                    </div> */}
+                                    </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </MuiThemeProvider>
                     </div>
                     <div className="recent-posts">

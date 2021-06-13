@@ -9,7 +9,7 @@ export default function LastPostsCard({post})
                 <img src={post.image} alt={post.title} className="main-image" />
             </div>
             <div className="last-posts-card-information">
-                <Link to={{pathname: `/`}} className="link">{post.title}</Link>
+                <Link to={{pathname: `/${post.title.replace(/\s+/g, '-')}`}} className="link">{post.title}</Link>
                 <p className="date">{new Date(post.date.seconds * 1000).toLocaleDateString('en-GB')}</p>
             </div>
         </div>

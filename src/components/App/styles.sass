@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap')
 @import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap')
 @import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap')
+
+@font-face
+    font-family: "TsMatka"
+    src: local("TsMatka"), url(../../fonts/TsMatka-Regular.otf) format("truetype")
 
 /* === Colors Palette === */
 
@@ -302,7 +307,7 @@ $lg: 1920px
         align-items: center
         position: relative
         width: 100%
-        height: 800px
+        height: 850px
         padding: 0 10px
         margin-bottom: 100px
         background: linear-gradient(to top, #121212, #121212cc, #12121299, #12121299, #12121299), url('../../images/328905.jpg') no-repeat center center
@@ -316,12 +321,18 @@ $lg: 1920px
             height: fit-content
 
         .title
-            font-family: 'Secular One', sans-serif
             font-weight: normal
             font-size: 65px
             text-align: center
             text-shadow: 4px 4px 3px black
             line-height: 100%
+
+            .english
+                font-family: 'Amatic SC', sans-serif
+                font-weight: 600
+
+            .hebrew
+                font-family: 'TsMatka', sans-serif
 
         .subtitle
             margin-bottom: 25px
@@ -403,6 +414,10 @@ $lg: 1920px
 
                         object-fit: cover
                         object-position: center center
+
+                .logo
+                    width: 100px
+                    margin-bottom: 15px
 
                 .about-text
                     text-align: center

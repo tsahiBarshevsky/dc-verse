@@ -9,7 +9,7 @@ export default function RelatedPostCard({post})
                 <img src={post.image} alt={post.title} className="main-image" />
             </div>
             <div className="related-posts-card-information">
-                <Link to={{pathname: `/`}} className="link">{post.title}</Link>
+                <Link to={{pathname: `/${post.title.replace(/\s+/g, '-')}`}} className="link">{post.title}</Link>
                 <div className="category-and-date">
                     <div className="category">{post.category}</div>
                     <p>{new Date(post.date.seconds * 1000).toLocaleDateString('en-GB')}</p>
