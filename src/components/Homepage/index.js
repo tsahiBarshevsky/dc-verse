@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Divider, makeStyles } from '@material-ui/core';
+import { Divider, makeStyles, IconButton } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { Link as Scroll } from 'react-scroll';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import MainCard from '../Cards/main';
 import MainArticle from '../Cards/mainArticle';
 import Footer from '../Footer';
@@ -16,6 +18,29 @@ const useStyles = makeStyles({
         marginTop: 40,
         marginBottom: 40,
         backgroundColor: '#88888833'
+    },
+    heroDivider:
+    {
+        width: 80,
+        height: 10,
+        marginTop: 20,
+        marginBottom: 40,
+        backgroundColor: '#ffa301'
+    },
+    scrollButton:
+    {
+        width: 45,
+        height: 45,
+        color: '#ffa301',
+        backgroundColor: 'transparent',
+        border: '2px solid #ffa301',
+        transition: 'all 0.2s ease-out',
+        '&:hover':
+        {
+            color: 'white',
+            backgroundColor: '#ffa301',
+            transition: 'all 0.2s ease-in'
+        }
     }
 });
 
@@ -68,9 +93,23 @@ export default function Homepage()
             <Sidebar isOpen={isOpen} toggle={toggle} />
             <Navbar toggle={toggle} />
             <div className="hero-container">
-                כל החדשות והעדכונים ביקום של DC במקום אחד
+                <h1 className="title">DC Verse - כל החדשות והעדכונים החמים</h1>
+                <Divider className={classes.heroDivider} />
+                <p className="subtitle">
+                    לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית גולר מונפרר סוברט לורם שבצק יהול, לכנוץ בעריר גק ליץ, ושבעגט ליבם סולגק. בראיט ולחת צורק מונחף, בגורמי מגמש. תרבנך וסתעד לכנו סתשם השמה - לתכי מורגם בורק? לתיג ישבעס.
+                </p>
+                <Scroll to="main-article"
+                    exact='true' 
+                    smooth={true} duration={1500}
+                    spy={true} offset={-55}>
+                    <IconButton className={classes.scrollButton}>
+                        <ArrowDownwardIcon />
+                    </IconButton>
+                </Scroll>
             </div>
-            {recentPosts.length > 0 ? <MainArticle post={recentPosts[0]} /> : null}
+            <div className="main-article">
+                {recentPosts.length > 0 ? <MainArticle post={recentPosts[0]} /> : null}
+            </div>
             <Divider className={classes.divider} />
             <div className="main-section">
                 <div className="posts">

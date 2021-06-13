@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createMuiTheme, makeStyles, MuiThemeProvider, Typography, Divider, Grid, Button } from '@material-ui/core';
-import { FaFacebookF, FaFacebook, FaFacebookMessenger, FaTwitter, FaWhatsapp, FaInstagram } from 'react-icons/fa';
+import { FaFacebookF, FaFacebookMessenger, FaTwitter, FaWhatsapp } from 'react-icons/fa';
 import { IoShareSocial } from 'react-icons/io5';
 import { FacebookShareButton, FacebookMessengerShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
 import parse from "html-react-parser";
@@ -187,11 +187,11 @@ export default function Article(props)
                                     <Typography variant="body1" gutterBottom>
                                         לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית גולר מונפרר סוברט לורם שבצק יהול, לכנוץ בעריר גק ליץ, ושבעגט ליבם סולגק. בראיט ולחת צורק מונחף, בגורמי מגמש. תרבנך וסתעד לכנו סתשם השמה - לתכי מורגם בורק? לתיג ישבעס.
                                     </Typography>
-                                    <div className="social-media">
+                                    {/* <div className="social-media">
                                         <FaFacebook className="icon" />
                                         <FaInstagram className="icon" />
                                         <FaTwitter className="icon" />
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </MuiThemeProvider>
