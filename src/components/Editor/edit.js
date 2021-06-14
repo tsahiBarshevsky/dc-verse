@@ -47,7 +47,6 @@ function EditPost(props)
 {
     const title = props.match.params.title.replaceAll('-', ' ');
     const [post, setPost] = useState({});
-    const [category, setCategory] = useState('');
     const [text, setText] = useState('');
     const [firstRun, setFirstRun] = useState(true);
     const [date, setDate] = useState(new Date());
@@ -63,7 +62,6 @@ function EditPost(props)
             firebase.getPost(title).then(setPost);
             setFirstRun(false);
         }
-        setCategory(post.category);
         if (post.date)
         {
             console.log("in");
@@ -71,7 +69,6 @@ function EditPost(props)
         }
         setText(post.text);
         setImage(post.image);
-        setCredit(post.credit);
     }, [post, firstRun, title]);
 
     if (!firebase.getCurrentUsername()) {
@@ -133,20 +130,9 @@ function EditPost(props)
 
     return Object.keys(post).length !== 0 ? (
         <div className="editor-container">
-            <h2>עריכת {title}</h2>
+            <h2>עריכת "{title}"</h2>
             <StylesProvider jss={jss}>
                 <MuiThemeProvider theme={theme}>
-                    <FormControl margin="normal" fullWidth>
-                        <Input
-                            id="category" name="category"
-                            variant="outlined"
-                            autoComplete="off"
-                            value={category}
-                            className={classes.input}
-                            placeholder="קטגוריה..."
-                            disableUnderline
-                            onChange={e => setCategory(e.target.value)} />
-                    </FormControl>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <KeyboardDatePicker
                             label={<h4 style={{marginRight: 15}}>תאריך</h4>}
@@ -229,13 +215,13 @@ function EditPost(props)
 
     async function editPost()
     {
-        if (category !== '' && text !== '')
+        if (text !== '')
         {
             try
             {
                 var parsedText = text.replace(/<[^>]+>/g, '');
                 const preview = parsedText.length >= 220 ? `${parsedText.slice(0, 220)}...` : parsedText;
-                await firebase.editPost(title, date, category, text, preview, image, credit);
+                await firebase.editPost(title, date, text, preview, image, credit);
                 notify("success", 'הכתבה עודכנה בהצלחה! מיד תועבר לדשבורד')
                 setTimeout(() =>
                 {

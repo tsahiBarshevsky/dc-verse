@@ -44,12 +44,11 @@ class Firebase
         return this.auth.currentUser;
     }
 
-    addPost(title, date, category, text, preview, image, credit)
+    addPost(title, date, text, preview, image, credit)
     {
         return this.db.doc(`posts/${title}`).set({
             title: title,
             date: date,
-            category: category,
             text: text,
             preview: preview,
             image: image,
@@ -57,11 +56,10 @@ class Firebase
         });
     }
 
-    async editPost(title, date, category, text, preview, image, credit)
+    async editPost(title, date, text, preview, image, credit)
     {
         this.db.collection('posts').doc(`${title}`).update({
             date: date,
-            category: category,
             text: text,
             preview: preview,
             image: image,
@@ -99,92 +97,6 @@ class Firebase
         });
         
         return this.db.collection('posts').doc(`${title}`).delete();
-    }
-
-    async getFourRecentPosts()
-    {
-        console.log('getFourRecentPosts called');
-        var recent = [], ret = [];
-        const snapshot = await app.firestore().collection('posts').get();
-        snapshot.docs.map(doc => recent.push(doc.data()));
-        var sorted = recent.sort((a,b) => (a.date < b.date) ? 1 : ((b.date < a.date) ? -1 : 0));
-        for (var i=0; i<5; i++)
-            if (new Date(sorted[i].date.seconds * 1000) <= new Date().setHours(23, 59, 59, 59))
-                ret.push(sorted[i]);
-        return ret;
-    }
-
-    // Recent posts shown in the current post
-    async getRecentPosts(title)
-    {
-        var recent = [], ret = [], counter = 0;
-        const snapshot = await app.firestore().collection('posts').get();
-        snapshot.docs.map(doc => recent.push(doc.data()));
-        var sorted = recent.sort((a,b) => (a.date < b.date) ? 1 : ((b.date < a.date) ? -1 : 0));
-        for (var i=0; i<sorted.length; i++)
-        {
-            if (sorted[i].title !== title && new Date(sorted[i].date.seconds * 1000) <= new Date().setHours(23, 59, 59, 59))
-            {
-                ret.push(sorted[i]);
-                counter++;
-            }
-            if (counter === 4)
-            break;
-        }
-        return ret;
-    }
-    
-    async getRelatedByCategory(title, category)
-    {
-        var related = [], ret = [], counter = 0;
-        const snapshot = await app.firestore().collection('posts').where("category", "==", category).get();
-        snapshot.docs.map(doc => related.push(doc.data()));
-        var sorted = related.sort((a,b) => (a.date < b.date) ? 1 : ((b.date < a.date) ? -1 : 0));
-        for (var i=0; i<sorted.length; i++)
-        {
-            if (sorted[i].title !== title && new Date(sorted[i].date.seconds * 1000) <= new Date().setHours(23, 59, 59, 59))
-            {
-                ret.push(sorted[i]);
-                counter++;
-            }
-            if (counter === 3)
-                break;
-        }
-        return ret;
-    }
-
-    async getAllPostsByCategory(category)
-    {
-        const snapshot = await app.firestore().collection('posts').where("category", "==", category).get();
-        snapshot.docs.map(doc => doc.data());
-    }
-
-    async categoriesDistribution()
-    {
-        var categories = [], a = [], b = [], ret = [], prev;
-        const snapshot = await app.firestore().collection('posts').get();
-        snapshot.docs.forEach(doc => 
-        {
-            if (new Date(doc.data().date.seconds * 1000) <= new Date().setHours(23, 59, 59, 59))
-                categories.push(doc.data().category)
-        });
-        categories.sort();
-        var i;
-        for (i = 0; i<categories.length; i++) 
-        {
-            if (categories[i] !== prev) 
-            {
-                a.push(categories[i]);
-                b.push(1);
-            } 
-            else
-                b[b.length-1]++;
-            prev = categories[i];
-        }
-        for (i=0; i<a.length; i++)
-            // if (b[i] >= 3)
-                ret.push({name: a[i], occurrences: b[i]});
-        return ret.sort((a,b) => (a.occurrences < b.occurrences) ? 1 : ((b.occurrences < a.occurrences) ? -1 : 0));
     }
 }
 

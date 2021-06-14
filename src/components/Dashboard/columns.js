@@ -9,12 +9,6 @@ export const columns = [
         cell: row => <div style={cell}>{row.title}</div>
     },
     {
-        name: <h2 style={header}>קטגוריה</h2>,
-        selector: 'category',
-        sortable: true,
-        cell: row => <div style={cell}>{row.category}</div>
-    },
-    {
         name: <h2 style={header}>תאריך</h2>,
         selector: 'date',
         sortable: true,

@@ -46,31 +46,26 @@ const useStyles = makeStyles({
 
 function Editor(props) 
 {
-    const [posts, setPosts] = useState('');
     const [title, setTitle] = useState('');
-    const [category, setCategory] = useState('');
     const [date, setDate] = useState(new Date());
     const [text, setText] = useState('');
     const [image, setImage] = useState('');
     const [credit, setCredit] = useState('');
     const [disableTitle, setDisableTitle] = useState(true);
-    const [disableCategory, setDisableCategory] = useState(true);
     const [disableText, setDisableText] = useState(true);
     const [disableSending, setDisableSending] = useState(true);
     const [progress, setProgress] = useState(0);
     const [state, setState] = useState({
         title: false,
-        checkCategory: false,
         checkText: false,
     });
 
-    const { checkTitle, checkSubtitle, checkCategory, checkText, checkCredit, checkTags } = state;
-    const errorCheck = [checkTitle, checkSubtitle, checkCategory, checkText, checkCredit, checkTags].filter((v) => v).length !== 3;
+    const { checkTitle, checkText } = state;
+    const errorCheck = [checkTitle, checkText].filter((v) => v).length !== 2;
     const classes = useStyles();
 
     useEffect(() => {
         document.title = `DC Verse | הוספת כתבה חדשה`;
-        firebase.getAllPosts().then(setPosts);
         if (!errorCheck) 
             setDisableSending(false);
         else
@@ -83,13 +78,6 @@ function Editor(props)
             default: 
                 setDisableTitle(false);
         }
-        switch(category)
-        {
-            case '':
-                setDisableCategory(true);
-                break;
-            default: setDisableCategory(false);
-        }
         switch(text)
         {
             case '':
@@ -97,8 +85,8 @@ function Editor(props)
                 break;
             default: setDisableText(false);
         }
-    }, [setDisableTitle, setDisableCategory, setDisableText,
-        title, category, text, errorCheck, setDisableSending]);
+    }, [setDisableTitle, setDisableText,
+        title, text, errorCheck, setDisableSending]);
 
     if (!firebase.getCurrentUsername()) {
         props.history.replace('/admin');
@@ -118,7 +106,6 @@ function Editor(props)
     const clearForm = () =>
     {
         setTitle('');
-        setCategory('');
         setText('');
         setDate(new Date());
         setCredit('');
@@ -171,22 +158,6 @@ function Editor(props)
         }
     }
 
-    const titleAvailability = () =>
-    {
-        var fault = false;
-        for (var i=0; i<posts.length; i++)
-        {
-            if (posts[i].title === title)
-            {
-                fault = true;
-                break;
-            }
-        }
-        if (fault)
-            return false;
-        return true;
-    }
-
     return (
         <div className="editor-container">
             <h2>הוספת כתבה חדשה</h2>
@@ -203,17 +174,6 @@ function Editor(props)
                             placeholder="כותרת..."
                             disableUnderline
                             onChange={e => setTitle(e.target.value)} />
-                    </FormControl>
-                    <FormControl margin="normal" fullWidth>
-                        <Input
-                            id="category" name="category"
-                            variant="outlined"
-                            autoComplete="off" 
-                            value={category} 
-                            className={classes.input}
-                            placeholder="קטגוריה..."
-                            disableUnderline 
-                            onChange={e => setCategory(e.target.value)} />
                     </FormControl>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <KeyboardDatePicker
@@ -301,21 +261,6 @@ function Editor(props)
                         control=
                         {
                             <Checkbox 
-                                checked={checkCategory} 
-                                onChange={handleChange} 
-                                name="checkCategory" 
-                                iconStyle={{fill: '#000000'}}
-                                inputStyle={{color:'#000000'}}
-                                style={{color:'#000000'}} />
-                        }
-                        label={<p style={{color: '#000000'}}>קטגוריה</p>}
-                        className="checkBox"
-                        disabled={disableCategory}
-                    />
-                    <FormControlLabel
-                        control=
-                        {
-                            <Checkbox 
                                 checked={checkText}
                                 onChange={handleChange} 
                                 name="checkText"
@@ -354,26 +299,23 @@ function Editor(props)
 
     async function addPost()
     {
-        if (titleAvailability())
-            try 
+        try 
+        {
+            var parsedText = text.replace(/<[^>]+>/g, '');
+            const preview = parsedText.length >= 220 ? `${parsedText.slice(0, 220)}...` : parsedText;
+            await firebase.addPost(title, date, text, preview, image, credit);
+            notify("success", "הכתבה נוספה בהצלחה! מיד תועבר לדשבורד");
+            setDisableSending(true);
+            setTimeout(() => 
             {
-                var parsedText = text.replace(/<[^>]+>/g, '');
-                const preview = parsedText.length >= 220 ? `${parsedText.slice(0, 220)}...` : parsedText;
-                await firebase.addPost(title, date, category, text, preview, image, credit);
-                notify("success", "הכתבה נוספה בהצלחה! מיד תועבר לדשבורד");
-                setDisableSending(true);
-                setTimeout(() => 
-                {
-                    props.history.replace("/dashboard");
-                }, 5000);
-            } 
-            catch (error) 
-            {
-                notify('error', 'קרתה שגיאה');
-                console.log(error.message);
-            }
-        else
-            notify('error', 'כבר יש לך כתבה בשם הזה');
+                props.history.replace("/dashboard");
+            }, 5000);
+        } 
+        catch (error) 
+        {
+            notify('error', 'קרתה שגיאה');
+            console.log(error.message);
+        }
     }
 }
 

@@ -99,7 +99,7 @@ function Dashboard(props)
         document.title = `DC Verse | דבשורד`;
         async function buildPostsTable()
         {
-            console.log("in");
+            console.log("buildPostsTable called");
             var arr = [];
             firebase.db.collection('posts').get().then((querySnapshot) =>
             {
@@ -107,7 +107,6 @@ function Dashboard(props)
                 {
                     arr.push({
                         title: doc.data().title,
-                        category: doc.data().category,
                         date: new Date(doc.data().date.seconds * 1000).toLocaleDateString("en-GB"),
                         buttons: 
                         <>
