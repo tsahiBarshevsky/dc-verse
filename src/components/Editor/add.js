@@ -247,13 +247,12 @@ function Editor(props)
                     }}
                 />
             </div>
-            <div className="tags-container">
-                <InputTags
-                    onTag={getTags}
-                    tagColor="#ffa301"
-                    placeHolder="הוסף תגית..."
-                />
-            </div>
+            <InputTags
+                className="input-tags"
+                onTag={getTags}
+                tagColor="#ffa301"
+                placeHolder="הוסף תגית..."
+            />
             <FormControl required error={errorCheck} component="fieldset">
                 <FormLabel component="legend" style={!errorCheck ? {color: '#000000'} : null}>צ'ק ליסט</FormLabel>
                 <FormGroup>

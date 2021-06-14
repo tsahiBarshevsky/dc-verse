@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Divider, makeStyles, IconButton } from '@material-ui/core';
 import { Link as Scroll } from 'react-scroll';
+import { Link } from 'react-router-dom';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import MainCard from '../Cards/main';
 import MainArticle from '../Cards/mainArticle';
@@ -122,12 +123,12 @@ export default function Homepage()
             <div className="main-section">
                 {renderFourRecentArticles()}
                 <div className="about-container">
-                    <div className="about">
-                        <div className="about-image-container">
-                            <img src={Batman} alt="Batman" className="about-image" />
-                        </div>
+                    <div className="about-image-container">
+                        <img src={Batman} alt="Batman" className="about-image" />
+                    </div>
+                    <div className="logo-and-text">
                         <img src={Logo} alt="Logo" className="logo" />
-                        <p className="about-text">כל החדשות והעדכונים על המולטיוורס של דיסי בקומיקס, ביקומים הטלוויזיונים והקולנועיים.</p>
+                        <p className="about-text">DC Verse הוא האתר שמביא אליכם את כל החדשות והעדכונים הכי חמים הקשורים במולטיוורס של דיסי בקומיקס, ביקומים הטלוויזיונים והקולנועיים.</p>
                     </div>
                 </div>
             </div>
@@ -135,6 +136,7 @@ export default function Homepage()
             <div className="top-articles">
                 <h3 className="title">כתבות נוספות</h3>
                 {renderAdditionalArticles()}
+                {posts.length >= 10 ? <Link to='/archive' className="archive-link">לשאר הכתבות</Link> : null}
             </div>
             <Footer origin='homepage' />
         </div>
