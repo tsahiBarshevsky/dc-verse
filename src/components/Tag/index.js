@@ -25,12 +25,17 @@ export default function Tag(props)
             <Sidebar isOpen={isOpen} toggle={toggle} />
             <Navbar toggle={toggle} />
             <div className="archive-container">
-                <h3 className="title">כתבות בנושא {tag}</h3>
-                {posts.sort((a,b) => (a.date < b.date) ? 1 : ((b.date < a.date) ? -1 : 0)).map((post, index) =>
-                    <div key={index}>
-                        <MainCard post={post} />
-                    </div>
-                )}
+                {posts.length > 0 ?
+                <>
+                    <h3 className="title">כתבות בנושא {tag}</h3>
+                    {posts.sort((a,b) => (a.date < b.date) ? 1 : ((b.date < a.date) ? -1 : 0)).map((post, index) =>
+                        <div key={index}>
+                            <MainCard post={post} />
+                        </div>
+                    )}
+                </>
+                :
+                <h3 className="title">לא נמצאו כתבות בנושא {tag}</h3>}
             </div>
         </>
     ) : <LoadingAnimation text="כבר מגיע..." />

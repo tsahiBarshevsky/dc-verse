@@ -31,8 +31,9 @@ export default function App()
                 <Route exact path="/dashboard" component={Dashboard} />
                 <Route exact path="/archive" component={Archive} />
                 <Route exact path="/editor" component={Editor} />
-                <Route exact path="/:title" component={Article} />
+                <Route exact path="/tags" component={Page404} />
                 <Route exact path="/tags/:tag" component={Tag} />
+                <Route exact path="/:title" component={Article} />
                 <Route exact path="/editor/:title" component={EditPost} />
                 <Route exact path="*" component={Page404} />
             </Switch>
