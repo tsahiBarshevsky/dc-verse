@@ -14,6 +14,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProgressBar from '@ramonak/react-progress-bar';
 import { withRouter } from 'react-router-dom';
+import InputTags from "react-input-tags-hooks";
+import 'react-input-tags-hooks/build/index.css';
 import firebase from '../firebase';
 
 const theme = createMuiTheme({direction: 'rtl'});
@@ -49,6 +51,7 @@ function Editor(props)
     const [title, setTitle] = useState('');
     const [date, setDate] = useState(new Date());
     const [text, setText] = useState('');
+    const [tags, setTags] = useState([]);
     const [image, setImage] = useState('');
     const [credit, setCredit] = useState('');
     const [disableTitle, setDisableTitle] = useState(true);
@@ -143,6 +146,11 @@ function Editor(props)
 			}
 		}
 	}
+
+    const getTags = (tags) => 
+    {
+        setTags(tags);
+    }
 
     const notify = (type, message) =>
     {
@@ -239,6 +247,13 @@ function Editor(props)
                     }}
                 />
             </div>
+            <div className="tags-container">
+                <InputTags
+                    onTag={getTags}
+                    tagColor="#ffa301"
+                    placeHolder="הוסף תגית..."
+                />
+            </div>
             <FormControl required error={errorCheck} component="fieldset">
                 <FormLabel component="legend" style={!errorCheck ? {color: '#000000'} : null}>צ'ק ליסט</FormLabel>
                 <FormGroup>
@@ -303,7 +318,7 @@ function Editor(props)
         {
             var parsedText = text.replace(/<[^>]+>/g, '');
             const preview = parsedText.length >= 220 ? `${parsedText.slice(0, 220)}...` : parsedText;
-            await firebase.addPost(title, date, text, preview, image, credit);
+            await firebase.addPost(title, date, text, preview, image, credit, tags);
             notify("success", "הכתבה נוספה בהצלחה! מיד תועבר לדשבורד");
             setDisableSending(true);
             setTimeout(() => 

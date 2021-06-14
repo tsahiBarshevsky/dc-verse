@@ -20,9 +20,6 @@ export default function Sidebar({isOpen, toggle})
                 <li className="sidebar-link">
                     <Link to='/archive' className="link">כל הכתבות</Link>
                 </li>
-                <li className="sidebar-link">
-                    <Link to='/categories' className="link">קטגוריות</Link>  
-                </li>
             </ul>
         </aside>
     )

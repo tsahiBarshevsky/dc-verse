@@ -83,8 +83,12 @@ export default function Homepage()
     {
         var arr = [];
         for (var i=5; i<posts.length; i++)
+        {
             if (new Date(posts[i].date.seconds * 1000) <= new Date().setHours(23, 59, 59, 59))
                 arr.push(<MainCard post={posts[i]} />);
+            if (i === 9)
+                break;
+        }
         return <div className="articles">{arr}</div>
     }
 

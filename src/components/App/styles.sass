@@ -1,3 +1,5 @@
+/* === Fonts === */
+
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap')
 @import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap')
 @import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap')
@@ -533,9 +535,31 @@ footer
 
             .text-container
                 width: 90%
+                margin-bottom: 15px
 
                 @media screen and ( max-width: $sm )
                     width: 100%
+
+            .tags-container
+                display: flex
+                flex-wrap: wrap
+                flex-direction: row
+                justify-content: flex-start
+                align-items: center
+                margin-bottom: 10px
+
+                h4
+                    margin-left: 10px
+
+                .tag-link
+                    text-decoration: underline
+                    color: $text
+                    margin-left: 10px
+                    font-size: 15px
+                    transition: color 0.25s ease-in-out
+
+                    &:hover
+                        color: $secondary
 
             .about
                 display: flex
@@ -692,6 +716,10 @@ footer
 
         .ck-editor__editable
             min-height: 500px
+
+    .tags-container
+        width: 600px
+        margin-block: 10px
 
     fieldset
         width: 230px

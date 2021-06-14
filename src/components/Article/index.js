@@ -160,6 +160,11 @@ export default function Article(props)
                             <div className="text-container">
                                 {post ? renderText() : null}
                             </div>
+                            {post.tags.length > 0 ?
+                            <div className="tags-container">
+                                <h4>תגיות: </h4>
+                                {post.tags.map((tag) => <Link className="tag-link" to={`/tags/${tag}`}>{tag}</Link>)}
+                            </div> : null}
                             {/* <div className="about">
                                 <div className="image-container">
                                     <img src={Batman} alt="Batman" />

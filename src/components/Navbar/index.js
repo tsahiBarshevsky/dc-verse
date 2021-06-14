@@ -44,9 +44,6 @@ export default function Navbar({toggle})
                     <li className="nav-link">
                         <Link to='/archive' className="link">כל הכתבות</Link>
                     </li>
-                    <li className="nav-link">
-                        <Link to='/categories' className="link">קטגוריות</Link>
-                    </li>
                 </ul>
             </div>
         </nav>
