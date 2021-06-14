@@ -103,6 +103,7 @@ class Firebase
 
     async getFourRecentPosts()
     {
+        console.log('getFourRecentPosts called');
         var recent = [], ret = [];
         const snapshot = await app.firestore().collection('posts').get();
         snapshot.docs.map(doc => recent.push(doc.data()));

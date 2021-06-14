@@ -49,8 +49,6 @@ const useStyles = makeStyles({
 export default function Homepage() 
 {
     const [posts, setPosts] = useState('');
-    // const [recentPosts, setRecentPosts] = useState([]);
-    // const [categories, setCategories] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => {setIsOpen(!isOpen)};
     const classes = useStyles();
@@ -59,8 +57,6 @@ export default function Homepage()
     {
         document.title = 'DC Verse | דף הבית';
         firebase.getAllPosts().then(setPosts);
-        // firebase.getFourRecentPosts().then(setRecentPosts);
-        // firebase.categoriesDistribution().then(setCategories);
     }, []);
 
     const renderFourRecentArticles = () =>

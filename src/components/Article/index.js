@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { createMuiTheme, makeStyles, MuiThemeProvider, Typography, Divider, Grid, Button } from '@material-ui/core';
+import { createMuiTheme, makeStyles, MuiThemeProvider, Typography, Button } from '@material-ui/core';
 import { FaFacebookF, FaFacebookMessenger, FaTwitter, FaWhatsapp } from 'react-icons/fa';
 import { IoShareSocial } from 'react-icons/io5';
 import { FacebookShareButton, FacebookMessengerShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
 import parse from "html-react-parser";
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Link } from 'react-router-dom';
-import LastPostsCard from '../Cards/lastPosts';
-import RelatedPostCard from '../Cards/related';
 import LoadingAnimation from '../Loading';
 import Footer from '../Footer';
 import Navbar from '../Navbar';
@@ -68,14 +65,11 @@ export default function Article(props)
 {
     const title = props.match.params.title.replaceAll('-', ' ');
     const [post, setPost] = useState('');
-    const [recentPosts, setRecentPosts] = useState([]);
-    const [relatedPosts, setRelatedPosts] = useState([]);
     const [loaded, setLoaded] = useState(false);
     const [fault, setFault] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => {setIsOpen(!isOpen)};
     const classes = useStyles();
-    const matches = useMediaQuery('(max-width: 836px)');
 
     useEffect(() => 
     {
@@ -83,27 +77,14 @@ export default function Article(props)
             document.title = `DC Verse | ${title}`;
         else
             document.title = `DC Verse | שגיאה`;
-
-        // get post values
         firebase.getPost(title).then(setPost);
+    }, [title, fault]);
 
-        // if (post)
-        // {
-        //     // get 4 recent posts
-        //     firebase.getRecentPosts(title).then(setRecentPosts);
-            
-        //     // get 3 related posts
-        //     if (post.category !== undefined)
-        //         firebase.getRelatedByCategory(title, post.category).then(setRelatedPosts);
-        // }
-    }, [title]);
-
-    if (post && recentPosts && !loaded)
+    if (post && !loaded)
         setLoaded(true);
 
     if (post === null && !fault)
         setFault(true); 
-
 
     const renderText = () =>
     {
@@ -127,9 +108,8 @@ export default function Article(props)
                     <div className="title-wrapper">
                         <Typography variant="h4">{post.title}</Typography>
                     </div>
-                    <div className="category-and-date">
-                        <div className="category">{post.category}</div>
-                        <p>{new Date(post.date.seconds * 1000).toLocaleDateString("en-GB")}</p>
+                    <div className="date">
+                        <p>פורסם בתאריך {new Date(post.date.seconds * 1000).toLocaleDateString("en-GB")}</p>
                     </div>
                 </div>
                 <div className="wrapper">
@@ -198,33 +178,7 @@ export default function Article(props)
                             </div> */}
                         </MuiThemeProvider>
                     </div>
-                    <div className="recent-posts">
-                        <MuiThemeProvider theme={theme}>
-                            <Typography variant="subtitle2">כתבות אחרונות</Typography>
-                            {recentPosts.map((post, index) =>
-                                <div key={index}>
-                                    <LastPostsCard post={post} />
-                                </div>
-                            )}
-                        </MuiThemeProvider>
-                    </div>
                 </div>
-                {relatedPosts.length > 0 ?
-                <>
-                    <Divider className={classes.divider} />
-                    <MuiThemeProvider theme={theme}>
-                        <Typography variant="subtitle2">כתבות נוספות בקטגוריה {post.category}</Typography>
-                        <Grid container direction="row" justify={!matches ? "space-between" : "center"} alignItems="center">
-                            {relatedPosts.map((post, index) =>
-                                <div key={index}>
-                                    <Grid item>
-                                        <RelatedPostCard post={post} />
-                                    </Grid>
-                                </div>
-                            )} 
-                        </Grid>
-                    </MuiThemeProvider>
-                </> : null}
             </div>
             <Footer origin="article" />
         </>

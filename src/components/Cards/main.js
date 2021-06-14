@@ -10,8 +10,7 @@ export default function MainCard({post})
             </div>
             <div className="information">
                 <Link to={{pathname: `/${post.title.replace(/\s+/g, '-')}`}} className="link">{post.title}</Link>
-                <div className="category-and-date">
-                    <div className="category">{post.category}</div>
+                <div className="date">
                     <p>{new Date(post.date.seconds * 1000).toLocaleDateString('en-GB')}</p>
                 </div>
                 <p>{post.preview}</p>
