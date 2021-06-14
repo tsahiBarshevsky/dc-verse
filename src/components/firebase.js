@@ -99,6 +99,13 @@ class Firebase
         
         return this.db.collection('posts').doc(`${title}`).delete();
     }
+
+    async getAllPostsByTags(tag)
+    {
+        console.log('getAllPostsByTags called');
+        const snapshot = await app.firestore().collection('posts').where("tags", "array-contains", tag).get();
+        return snapshot.docs.map(doc => doc.data());
+    }
 }
 
 export default new Firebase();

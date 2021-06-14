@@ -9,6 +9,7 @@ import firebase from '../firebase';
 import Navbar from '../Navbar';
 import Sidebar from '../Sidebar';
 import ScrollToTop from '../scrollToTop';
+import LoadingAnimation from '../Loading';
 import Batman from '../../images/marcin-lukasik-uYpOYyJdhRE-unsplash.jpg';
 import Logo from '../../images/logo.png';
 
@@ -137,5 +138,5 @@ export default function Homepage()
             </div>
             <Footer origin='homepage' />
         </div>
-    ) : <div className="full-container">טועןןן</div>
+    ) : <LoadingAnimation text="כבר מגיע..." />
 }

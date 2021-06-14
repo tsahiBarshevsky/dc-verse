@@ -11,6 +11,7 @@ import Dashboard from '../Dashboard';
 import Admin from '../Admin';
 import Page404 from '../Page 404';
 import Archive from '../Archive';
+import Tag from '../Tag';
 
 export default function App() 
 {
@@ -31,6 +32,7 @@ export default function App()
                 <Route exact path="/archive" component={Archive} />
                 <Route exact path="/editor" component={Editor} />
                 <Route exact path="/:title" component={Article} />
+                <Route exact path="/tags/:tag" component={Tag} />
                 <Route exact path="/editor/:title" component={EditPost} />
                 <Route exact path="*" component={Page404} />
             </Switch>
