@@ -87,16 +87,16 @@ export default function Article(props)
         // get post values
         firebase.getPost(title).then(setPost);
 
-        if (post)
-        {
-            // get 4 recent posts
-            firebase.getRecentPosts(title).then(setRecentPosts);
+        // if (post)
+        // {
+        //     // get 4 recent posts
+        //     firebase.getRecentPosts(title).then(setRecentPosts);
             
-            // get 3 related posts
-            if (post.category !== undefined)
-                firebase.getRelatedByCategory(title, post.category).then(setRelatedPosts);
-        }
-    }, [title, post, fault]);
+        //     // get 3 related posts
+        //     if (post.category !== undefined)
+        //         firebase.getRelatedByCategory(title, post.category).then(setRelatedPosts);
+        // }
+    }, [title]);
 
     if (post && recentPosts && !loaded)
         setLoaded(true);

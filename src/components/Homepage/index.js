@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Divider, makeStyles, IconButton } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 import { Link as Scroll } from 'react-scroll';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import MainCard from '../Cards/main';
@@ -49,9 +48,9 @@ const useStyles = makeStyles({
 
 export default function Homepage() 
 {
-    const [posts, setPosts] = useState([]);
-    const [recentPosts, setRecentPosts] = useState([]);
-    const [categories, setCategories] = useState([]);
+    const [posts, setPosts] = useState('');
+    // const [recentPosts, setRecentPosts] = useState([]);
+    // const [categories, setCategories] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => {setIsOpen(!isOpen)};
     const classes = useStyles();
@@ -60,39 +59,40 @@ export default function Homepage()
     {
         document.title = 'DC Verse | דף הבית';
         firebase.getAllPosts().then(setPosts);
-        firebase.getFourRecentPosts().then(setRecentPosts);
-        firebase.categoriesDistribution().then(setCategories);
+        // firebase.getFourRecentPosts().then(setRecentPosts);
+        // firebase.categoriesDistribution().then(setCategories);
     }, []);
 
-    function renderPostsByCategory(category)
+    const renderFourRecentArticles = () =>
     {
         var arr = [], counter = 0;
-        var sorted = posts.sort((a,b) => (a.date < b.date) ? 1 : ((b.date < a.date) ? -1 : 0));
-        for (var i=0; i<sorted.length; i++) 
+        for (var i=1; i<posts.length; i++)
         {
-            if (sorted[i].category === category && new Date(sorted[i].date.seconds * 1000) <= new Date().setHours(23, 59, 59, 59))
+            if (new Date(posts[i].date.seconds * 1000) <= new Date().setHours(23, 59, 59, 59))
             {
-                arr.push(<MainCard post={sorted[i]} />);
+                arr.push(<MainCard post={posts[i]} />);
                 counter++;
             }
-            if (counter === 3)
+            if (counter === 4)
                 break;
         }
         return (
-            <>
-                <div className="category-title">
-                    <h3>{category}</h3>
-                    {counter === 3 ?
-                    <Link className="link" to={{pathname: `/categories/${category}`}}>
-                        עוד ב{category}
-                    </Link> : null}
-                </div>
-                <div style={{paddingBottom: 25}}>{arr}</div>
-            </>
-        )
+            <div className="posts">
+                <h3 className="title">כתבות אחרונות</h3>
+                {arr}
+            </div>);
     }
 
-    return (
+    const renderAdditionalArticles = () =>
+    {
+        var arr = [];
+        for (var i=5; i<posts.length; i++)
+            if (new Date(posts[i].date.seconds * 1000) <= new Date().setHours(23, 59, 59, 59))
+                arr.push(<MainCard post={posts[i]} />);
+        return <div className="articles">{arr}</div>
+    }
+
+    return posts ? (
         <div className="homepage-container">
             <ScrollToTop />
             <Sidebar isOpen={isOpen} toggle={toggle} />
@@ -115,19 +115,12 @@ export default function Homepage()
                 </Scroll>
             </div>
             <div className="main-article">
-                {recentPosts.length > 0 ? <MainArticle post={recentPosts[0]} /> : null}
+                {posts.length > 0 ? <MainArticle post={posts[0]} /> : null}
             </div>
             <Divider className={classes.divider} />
             <div className="main-section">
-                <div className="posts">
-                    <h3 className="title">כתבות אחרונות</h3>
-                    {recentPosts.slice(1).map((post, index) =>
-                        <div key={index}>
-                            <MainCard post={post} />
-                        </div>
-                    )}
-                </div>
-                <div className="about-and-categories">
+                {renderFourRecentArticles()}
+                <div className="about-container">
                     <div className="about">
                         <div className="about-image-container">
                             <img src={Batman} alt="Batman" className="about-image" />
@@ -135,32 +128,14 @@ export default function Homepage()
                         <img src={Logo} alt="Logo" className="logo" />
                         <p className="about-text">כל החדשות והעדכונים על המולטיוורס של דיסי בקומיקס, ביקומים הטלוויזיונים והקולנועיים.</p>
                     </div>
-                    <div className="top-categories">
-                        <h3 className="title">קטגוריות מובילות</h3>
-                        {categories.map((category) =>
-                            <div key={category.id} className="category">
-                                <Link className="link" to={{pathname: `/categories/${category.name}`}}>
-                                    {category.name}
-                                </Link>
-                                <p>{category.occurrences}</p>
-                            </div>
-                        )}
-                        <Link className="other-categories" to='/categories'>לכל הקטגוריות</Link>
-                    </div>
                 </div>
             </div>
             <Divider className={classes.divider} />
             <div className="top-articles">
-                <h3 className="title">כתבות מובילות</h3>
-                <div className="articles">
-                    {categories.map((category, index) =>
-                        <div key={index}>
-                            {renderPostsByCategory(category.name)}
-                        </div>
-                    )}
-                </div>
+                <h3 className="title">כתבות נוספות</h3>
+                {renderAdditionalArticles()}
             </div>
             <Footer origin='homepage' />
         </div>
-    )
+    ) : <div className="full-container">טועןןן</div>
 }

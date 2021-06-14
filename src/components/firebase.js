@@ -71,6 +71,7 @@ class Firebase
 
     async getPost(title)
     {
+        console.log('getPost called');
         const reference = this.db.collection(`posts`).doc(`${title}`);
         const doc = await reference.get();
         if (doc.data())
@@ -80,8 +81,9 @@ class Firebase
 
     async getAllPosts()
     {
+        console.log("getAllPosts called");
         const snapshot = await app.firestore().collection('posts').get();
-        return snapshot.docs.map(doc => doc.data());
+        return snapshot.docs.map(doc => doc.data()).sort((a,b) => (a.date < b.date) ? 1 : ((b.date < a.date) ? -1 : 0));
     }
 
     deletePost(title)

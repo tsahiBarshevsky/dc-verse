@@ -371,7 +371,7 @@ $lg: 1920px
                 margin-bottom: 15px
                 letter-spacing: 1px
 
-        .about-and-categories
+        .about-container
             display: flex
             flex-direction: column
             justify-content: flex-start
@@ -426,59 +426,6 @@ $lg: 1920px
                 .about-text
                     text-align: center
                     margin-bottom: 10px
-
-            .top-categories
-                display: flex
-                flex-direction: column
-                justify-content: center
-                align-items: flex-start
-                width: 100%
-
-                @media screen and ( max-width: $md )
-                    width: 235px
-
-                @media screen and ( max-width: 645px )
-                    width: 100%
-
-                .title
-                    margin: 25px 0 15px
-                    letter-spacing: 1px
-
-                    @media screen and ( max-width: $md )
-                        margin: 0 0 15px
-
-                    @media screen and ( max-width: 645px )
-                        margin: 25px 0 15px
-
-                .category
-                    display: flex
-                    justify-content: space-between
-                    align-items: center
-                    width: 100%
-                    margin-bottom: 15px
-
-                    .link
-                        text-decoration: none
-                        color: $text
-                        font-size: 18px
-                        transition: color 0.5s ease-in-out
-
-                    &:hover
-                        p, .link
-                            color: $secondary
-
-                    p
-                        transition: color 0.5s ease-in-out
-
-                .other-categories
-                    text-decoration: none
-                    color: $text
-                    font-size: 15px
-                    margin-top: 15px
-                    transition: color 0.5s ease-in-out
-
-                    &:hover
-                        color: $secondary
 
     .top-articles
         display: flex
