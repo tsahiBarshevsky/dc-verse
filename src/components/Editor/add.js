@@ -13,9 +13,9 @@ import { create } from 'jss';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProgressBar from '@ramonak/react-progress-bar';
-import { withRouter } from 'react-router-dom';
 import InputTags from "react-input-tags-hooks";
 import 'react-input-tags-hooks/build/index.css';
+import { Link } from 'react-router-dom';
 import firebase from '../firebase';
 
 const theme = createMuiTheme({direction: 'rtl'});
@@ -46,7 +46,7 @@ const useStyles = makeStyles({
     }
 })
 
-function Editor(props) 
+export default function Editor(props) 
 {
     const [title, setTitle] = useState('');
     const [date, setDate] = useState(new Date());
@@ -57,6 +57,7 @@ function Editor(props)
     const [disableTitle, setDisableTitle] = useState(true);
     const [disableText, setDisableText] = useState(true);
     const [disableSending, setDisableSending] = useState(true);
+    const [sent, setSent] = useState(false);
     const [progress, setProgress] = useState(0);
     const [state, setState] = useState({
         title: false,
@@ -291,6 +292,7 @@ function Editor(props)
                     </FormHelperText>
                 </FormGroup>
             </FormControl>
+            {!sent ?
             <div className="buttons">
                 <Button className="button"
                     variant="contained" 
@@ -301,6 +303,12 @@ function Editor(props)
                     variant="contained"
                     onClick={() => clearForm()}>נקה</Button>
             </div>
+            :
+            <div className="links">
+                <Link className="link" to='/dashboard'>בחזרה לדשבורד</Link>
+                <Link className="link" to={{pathname: `/${title.replace(/\s+/g, '-')}`}}>צפייה בפוסט</Link>
+                <Link className="link" to='/'>לדף הבית</Link>
+            </div>}
             <ToastContainer
                 position="bottom-center"
                 closeOnClick
@@ -318,12 +326,9 @@ function Editor(props)
             var parsedText = text.replace(/<[^>]+>/g, '');
             const preview = parsedText.length >= 220 ? `${parsedText.slice(0, 220)}...` : parsedText;
             await firebase.addPost(title, date, text, preview, image, credit, tags);
-            notify("success", "הכתבה נוספה בהצלחה! מיד תועבר לדשבורד");
+            notify("success", "הכתבה נוספה בהצלחה!");
             setDisableSending(true);
-            setTimeout(() => 
-            {
-                props.history.replace("/dashboard");
-            }, 5000);
+            setSent(true);
         } 
         catch (error) 
         {
@@ -332,5 +337,3 @@ function Editor(props)
         }
     }
 }
-
-export default withRouter(Editor);

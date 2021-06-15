@@ -11,7 +11,7 @@ import { create } from 'jss';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProgressBar from '@ramonak/react-progress-bar';
-import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import LoadingAnimation from '../Loading';
 import firebase from '../firebase';
 
@@ -43,7 +43,7 @@ const useStyles = makeStyles({
     }
 })
 
-function EditPost(props)
+export default function EditPost(props)
 {
     const title = props.match.params.title.replaceAll('-', ' ');
     const [post, setPost] = useState({});
@@ -53,6 +53,7 @@ function EditPost(props)
     const [progress, setProgress] = useState(0);
     const [image, setImage] = useState('');
     const [credit, setCredit] = useState('');
+    const [sent, setSent] = useState(false);
     const classes = useStyles();
 
     useEffect(() => {
@@ -197,12 +198,18 @@ function EditPost(props)
                     }}
                 />
             </div>
+            {!sent ?
             <div className="buttons">
                 <Button className="button"
-                    variant="contained"
-                    onClick={editPost}
-                    >שלח</Button>
+                    variant="contained" 
+                    onClick={editPost}>שלח</Button>
             </div>
+            :
+            <div className="links">
+                <Link className="link" to='/dashboard'>בחזרה לדשבורד</Link>
+                <Link className="link" to={{pathname: `/${title.replace(/\s+/g, '-')}`}}>צפייה בפוסט</Link>
+                <Link className="link" to='/'>לדף הבית</Link>
+            </div>}
             <ToastContainer
                 position="bottom-center"
                 closeOnClick
@@ -222,11 +229,8 @@ function EditPost(props)
                 var parsedText = text.replace(/<[^>]+>/g, '');
                 const preview = parsedText.length >= 220 ? `${parsedText.slice(0, 220)}...` : parsedText;
                 await firebase.editPost(title, date, text, preview, image, credit);
-                notify("success", 'הכתבה עודכנה בהצלחה! מיד תועבר לדשבורד')
-                setTimeout(() =>
-                {
-                    props.history.replace("/dashboard");
-                }, 5000);
+                notify("success", 'הכתבה עודכנה בהצלחה!');
+                setSent(true);
             }
             catch (error)
             {
@@ -235,8 +239,6 @@ function EditPost(props)
             }
         }
         else
-            notify('error', 'אחד השדות (קטגוריה או טקסט) נותר ריק');
+            notify('error', 'הטקסט נותר ריק');
     }
 }
-
-export default withRouter(EditPost);
